@@ -34,9 +34,39 @@ def index():return FileResponse(STATIC/'index.html',headers={'Cache-Control':'no
 def js():return FileResponse(STATIC/'app.js',media_type='application/javascript',headers={'Cache-Control':'no-store'})
 @app.get('/styles.css')
 def css():return FileResponse(STATIC/'styles.css',media_type='text/css',headers={'Cache-Control':'no-store'})
+SUGGESTIONS = {
+ 'preexisting_use': [
+  'गेल्या अनेक वर्षांपासून शेतात बैलगाडी, ट्रॅक्टर व पायी येण्या-जाण्यासाठी वहिवाट आहे.',
+  'शेतमाल वाहतूक, खते व अवजारे नेण्या-आणण्यासाठी पूर्वीपासून वापर केला जातो.',
+  'शेतातील विहीर, घर व मशागतीसाठी हाच पूर्वापार वहिवाटीचा रस्ता आहे.'
+ ],
+ 'route_description': [
+  'गट क्रमांकाच्या बांधावरून जाणारा वहिवाटीचा मार्ग.',
+  'पूर्वेकडील हद्दीवरून थेट शेताकडे जाणारा वहिवाटीचा रस्ता.',
+  'सामाईक बांधावरून गाव रस्त्याकडे जाणारा वहिवाटीचा मार्ग.'
+ ],
+ 'obstruction_description': [
+  'माती व मुरूमाचा भराव टाकून रस्ता पूर्ण बंद केला.',
+  'दगडांचा ढीग रचून ट्रॅक्टर व बैलगाडीची वाहतूक अडवली.',
+  'काटेरी तारांचे कुंपण व झाडांच्या फांद्या टाकून वहिवाट बंद केली.',
+  'रस्त्यावर खोल चर (खड्डा) खणून वहिवाट अडवली.'
+ ],
+ 'access_effect': [
+  'शेतात ट्रॅक्टर, अवजारे व बैलगाडी नेणे पूर्णपणे बंद झाले आहे.',
+  'काढलेला शेतमाल बाजारात नेणे अशक्य झाले आहे.',
+  'शेतीची आंतरमशागत, खते व पाणी देणे खोळंबले आहे.'
+ ],
+ 'specific_harm': [
+  'पीक काढणी वेळेत न झाल्याने शेतमालाचे प्रत्यक्ष नुकसान होण्याची भीती आहे.',
+  'पाणी देणे व औषध फवारणी वेळेत करता आली नाही.',
+  'शेतात जाण्याचा दुसरा कोणताही पर्यायी मार्ग उपलब्ध नाही.'
+ ]
+}
+
 @app.get('/api/options')
 def options():return {'reasons':S7['reasons'],'evidence':EVIDENCE,'attempts':ATTEMPTS,
-                      'responses':RESPONSES,'crop':CROP,'status':STATUS_TEXT}
+                      'responses':RESPONSES,'crop':CROP,'status':STATUS_TEXT,
+                      'suggestions':SUGGESTIONS}
 @app.post('/api/preview')
 def preview(input:Input):
  try:

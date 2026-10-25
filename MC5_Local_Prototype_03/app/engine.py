@@ -2,7 +2,7 @@
 NOT AI, not legal advice, not court-ready. Approved rule IDs stay fixed.
 """
 from __future__ import annotations
-import hashlib, io, json
+import datetime, hashlib, io, json, uuid
 from datetime import date
 from pathlib import Path
 from typing import Any
@@ -31,6 +31,99 @@ CROP = {'standing':'उभी पिके','not_grown':'अडथळ्या�
         'planned':'सध्या पीक नाही; पीक घेण्याचे नियोजन आहे',
         'harvested':'काढलेला शेतमाल शेतात आहे', 'other':'इतर परिस्थिती'}
 
+# Approved 7 aliases from V30 Register (A4 Gate)
+APPROVED_ALIASES = {
+    'MC5_URGENCY_3_SUBOPTIONS': 'reason3_details',
+    'MC5_HARVESTED_STOCK': 'harvested_stock',
+    'MC5_FARM_HOUSE_CONFIRMED': 'house_confirmed',
+    'MC5_URGENCY_4_DAMAGE_STATUS': 'reason4_damage',
+    'MC5_URGENT_HEARING_OPTIN': 'urgent_hearing',
+    'MC5_FINAL_CONSENT': 'review_confirmed',
+    'MC5_APP_SERIAL': 'app_number',
+}
+
+# Register V30 canonical field mapping to engine internal fields
+REGISTER_CANONICAL_MAP = {
+    'MC5_VILLAGE': 'village',
+    'MC5_TALUKA': 'taluka',
+    'MC5_DISTRICT': 'district',
+    'MC5_MAP_ACK': 'map_ack',
+    'MC5_PLAINTIFFS': 'plaintiffs',
+    'MC5_DEFENDANTS': 'defendants',
+    'MC5_LAND_RECORDS': 'land_records',
+    'MC5_ROUTE_GATS': 'route_gats',
+    'MC5_ROAD_WIDTH_FT': 'width_ft',
+    'MC5_ROAD_LENGTH_FT': 'length_ft',
+    'MC5_PREEXISTING_USE': 'preexisting_use',
+    'MC5_ROUTE_DESCRIPTION': 'route_description',
+    'MC5_VILLAGE_ROAD_CONFIRMED': 'village_road_confirmed',
+    'MC5_OBSTRUCTION_DATE': 'obstruction_date',
+    'MC5_OBSTRUCTION_GAT': 'obstruction_gat',
+    'MC5_OBSTRUCTION_GAT_CONFIDENCE': 'obstruction_gat_confidence',
+    'MC5_OBSTRUCTOR_ROLE': 'obstructor_role',
+    'MC5_OBSTRUCTION_TYPES': 'obstruction_description',
+    'MC5_CURRENT_STATUS': 'status',
+    'MC5_ACCESS_EFFECT': 'access_effect',
+    'MC5_SPECIFIC_HARM': 'specific_harm',
+    'MC5_CROP_STATUS': 'crop_status',
+    'MC5_HARVESTED_PRODUCE': 'harvested_stock',
+    'MC5_DAMAGE_ACTUAL': 'specific_harm',
+    'MC5_EVIDENCE_TYPES': 'evidence',
+    'MC5_UPLOADED_DOCS': 'attached_docs',
+    'MC5_ATTEMPTS_MADE': 'attempts_made',
+    'MC5_ATTEMPT_TYPES': 'attempt_types',
+    'MC5_DEFENDANT_RESPONSE': 'defendant_response',
+    'MC5_URGENCY_REASONS': 'urgency_reasons',
+    'MC5_REASON3_DETAILS': 'reason3_details',
+    'MC5_REASON4_DAMAGE': 'reason4_damage',
+    'MC5_REASON5_HOUSE': 'house_confirmed',
+    'MC5_URGENT_HEARING': 'urgent_hearing',
+    'MC5_FILING_DATE': 'filing_date',
+    'MC5_REVIEW_CONSENT': 'review_confirmed',
+    'MC5_DRAFT_ID': 'draft_id',
+    'MC5_STARTED_AT': 'started_at',
+    'MC5_APP_NUMBER': 'app_number',
+    'MC5_WORD_REVISION': 'word_revision',
+}
+
+def resolve_field_aliases(data: dict[str, Any]) -> tuple[dict[str, Any], list[str]]:
+    """Resolves V30 register aliases and canonical MC5_ keys with conflict detection."""
+    d = dict(data)
+    errors = []
+
+    def _is_conflict(v1, v2):
+        if v1 is None or v2 is None:
+            return False
+        if v1 == v2:
+            return False
+        if isinstance(v1, str) and isinstance(v2, str):
+            return v1.strip() != v2.strip()
+        if isinstance(v1, list) and isinstance(v2, list):
+            return v1 != v2
+        return True
+
+    # 1. Resolve approved aliases
+    for alias, canonical in APPROVED_ALIASES.items():
+        if alias in d:
+            val = d[alias]
+            if canonical in d and d[canonical] is not None:
+                if _is_conflict(val, d[canonical]):
+                    errors.append(f"Alias conflict: '{alias}' value conflicts with canonical '{canonical}'.")
+            else:
+                d[canonical] = val
+
+    # 2. Resolve register MC5_ keys
+    for reg_key, canonical in REGISTER_CANONICAL_MAP.items():
+        if reg_key in d:
+            val = d[reg_key]
+            if canonical in d and d[canonical] is not None:
+                if _is_conflict(val, d[canonical]):
+                    errors.append(f"Register key conflict: '{reg_key}' value conflicts with canonical '{canonical}'.")
+            else:
+                d[canonical] = val
+
+    return d, errors
+
 class ValidationError(ValueError):
  def __init__(self, errors):
   self.errors = errors
@@ -57,7 +150,8 @@ def _valid_date(x):
 def validate(payload:dict[str,Any]) -> dict[str,Any]:
  """Canonicalizes only input shape; never silently changes a user's selected facts."""
  if not isinstance(payload, dict):raise ValidationError(['माहितीचा नमुना चुकीचा आहे.'])
- d=dict(payload); errors=[]
+ d, alias_errors = resolve_field_aliases(payload)
+ errors = list(alias_errors)
  if d.get('map_ack') is not True:errors.append('नकाशाविषयक सूचना वाचल्याची पुष्टी आवश्यक आहे.')
  for f,label in [('village','गाव'),('taluka','तालुका'),('district','जिल्हा'),
                  ('route_description','रस्त्याचा प्रत्यक्ष मार्ग'),('preexisting_use','रस्त्याचा पूर्वीचा प्रत्यक्ष वापर'),
@@ -165,11 +259,30 @@ def paragraph_sources(n):return PROVENANCE[n]
 
 def make_draft(input_data):
  d=validate(input_data)
+ now_iso = datetime.datetime.now(datetime.timezone.utc).isoformat()
+ if not d.get('draft_id'):
+  d['draft_id'] = str(uuid.uuid4())
+ if not d.get('started_at'):
+  d['started_at'] = now_iso
+ if not d.get('word_revision'):
+  d['word_revision'] = 1
+ try:
+  start_dt = datetime.datetime.fromisoformat(d['started_at'])
+ except Exception:
+  start_dt = datetime.datetime.now(datetime.timezone.utc)
+ d['expires_at'] = (start_dt + datetime.timedelta(days=30)).isoformat()
  return {'paragraphs':draft_paragraphs(d),'prayers':d['prayers'],
   'limitation':d['limitation'],'export_label':export_label(d['limitation']),
   'evidence':d.get('evidence') or [], 'attached_docs':d.get('attached_docs') or [],
   'status':d['status'],'review_only':True,
+  'draft_id': d.get('draft_id'),
+  'started_at': d.get('started_at'),
+  'expires_at': d.get('expires_at'),
+  'word_revision': d.get('word_revision', 1),
+  'app_number': d.get('app_number'),
+  'retention_days_remaining': 30,
   'notice':'सॉफ्टवेअरचा चाचणी मसुदा — स्वतंत्र कायदेशीर पुनरावलोकनाशिवाय न्यायालयात दाखल करू नये.'}
+
 
 def canonical_hash(d:dict)->str:
  cleaned={k:v for k,v in d.items() if k not in ('review_confirmed','preview_token','prayers','limitation')}
@@ -207,6 +320,8 @@ def create_docx(input_data:dict, preview_token:str, review_confirmed:bool, draft
   doc.add_paragraph('अर्जासोबत जोडण्यासाठी वापरकर्त्याने निवडलेली कागदपत्रे (प्रत्यक्ष जोडल्याची तपासणी आवश्यक):')
   for i,x in enumerate(d['attached_docs'],1):doc.add_paragraph(f'{i}) {x}')
  else:doc.add_paragraph('जोडपत्रे : कोणतेही जोडल्याची पुष्टी दिलेली नाही.')
+ doc.add_paragraph('सत्यापन : मी/आम्ही, वर नमूद वादी, प्रतिज्ञापूर्वक लिहून देतो/देते की, वरील दाव्यातील परिच्छेद क्र. १ ते १३ मधील मजकूर माझ्या/आमच्या स्वतःच्या माहितीप्रमाणे व उपलब्ध कागदपत्रांनुसार खरा व बरोबर आहे.')
+ doc.add_paragraph(f'ठिकाण : {d["village"]}')
  doc.add_paragraph(f'अर्जाची मसुदा तारीख: {d["filing_date"]}')
  doc.add_paragraph('वादी/वादींची स्वाक्षरी : __________________')
  doc.add_paragraph('तथ्ये, मुदत, हक्क, पुरावे आणि कायदेशीर ग्राह्यता स्वतंत्रपणे पडताळणे आवश्यक आहे.')
