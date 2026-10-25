@@ -1,0 +1,101 @@
+{
+  "status1_urgent_yes": {
+    "prayers": [
+      {
+        "display_number": 1,
+        "master_prayer_id": "PR-1",
+        "text": "वादी यांच्या पूर्वीपासूनच्या वापरातील व दाव्यात वर्णन केलेल्या रस्त्यावर प्रतिवादी यांनी निर्माण केलेला अडथळा दूर करण्याचे आदेश देण्यात यावेत."
+      },
+      {
+        "display_number": 2,
+        "master_prayer_id": "PR-2",
+        "text": "प्रतिवादी यांनी अडथळा दूर न केल्यास सदर अडथळा सक्षम अधिकाऱ्यामार्फत दूर करून रस्ता पूर्वीप्रमाणे खुला करून मिळावा."
+      },
+      {
+        "display_number": 3,
+        "master_prayer_id": "PR-3",
+        "text": "प्रतिवादी यांनी वादी यांच्या सदर रस्त्याच्या वापरास भविष्यात कोणत्याही प्रकारे अडथळा निर्माण करू नये, असा मनाई आदेश देण्यात यावा."
+      },
+      {
+        "display_number": 4,
+        "master_prayer_id": "PR-4",
+        "text": "वादी यांना सदर रस्त्याच्या वापराची तातडीची आवश्यकता असल्याने प्रस्तुत प्रकरणाची तातडीने सुनावणी घेऊन अंतिम निर्णय देण्यात यावा."
+      }
+    ],
+    "limitation": {
+      "mode": "NORMAL_REVIEW",
+      "flag": "DATES_PRELIMINARILY_WITHIN_SIX_MONTHS",
+      "within_limit_statement_allowed": false,
+      "warning": null,
+      "independent_legal_review_still_required": true
+    }
+  },
+  "status2_urgent_no": {
+    "prayers": [
+      {
+        "display_number": 1,
+        "master_prayer_id": "PR-1",
+        "text": "वादी यांच्या पूर्वीपासूनच्या वापरातील व दाव्यात वर्णन केलेल्या रस्त्यावर प्रतिवादी यांनी निर्माण केलेला अडथळा दूर करण्याचे आदेश देण्यात यावेत."
+      },
+      {
+        "display_number": 2,
+        "master_prayer_id": "PR-2",
+        "text": "प्रतिवादी यांनी अडथळा दूर न केल्यास सदर अडथळा सक्षम अधिकाऱ्यामार्फत दूर करून रस्ता पूर्वीप्रमाणे खुला करून मिळावा."
+      },
+      {
+        "display_number": 3,
+        "master_prayer_id": "PR-3",
+        "text": "प्रतिवादी यांनी वादी यांच्या सदर रस्त्याच्या वापरास भविष्यात कोणत्याही प्रकारे अडथळा निर्माण करू नये, असा मनाई आदेश देण्यात यावा."
+      }
+    ],
+    "limitation": {
+      "mode": "NORMAL_REVIEW",
+      "flag": "DATES_PRELIMINARILY_WITHIN_SIX_MONTHS",
+      "within_limit_statement_allowed": false,
+      "warning": null,
+      "independent_legal_review_still_required": true
+    }
+  },
+  "status3_no_urgency": {
+    "prayers": [
+      {
+        "display_number": 1,
+        "master_prayer_id": "PR-3",
+        "text": "प्रतिवादी यांनी वादी यांच्या सदर रस्त्याच्या वापरास भविष्यात कोणत्याही प्रकारे अडथळा निर्माण करू नये, असा मनाई आदेश देण्यात यावा."
+      }
+    ],
+    "limitation": {
+      "mode": "NORMAL_REVIEW",
+      "flag": "DATES_PRELIMINARILY_WITHIN_SIX_MONTHS",
+      "within_limit_statement_allowed": false,
+      "warning": null,
+      "independent_legal_review_still_required": true
+    }
+  },
+  "late_review_only": {
+    "prayers": [
+      {
+        "display_number": 1,
+        "master_prayer_id": "PR-1",
+        "text": "वादी यांच्या पूर्वीपासूनच्या वापरातील व दाव्यात वर्णन केलेल्या रस्त्यावर प्रतिवादी यांनी निर्माण केलेला अडथळा दूर करण्याचे आदेश देण्यात यावेत."
+      },
+      {
+        "display_number": 2,
+        "master_prayer_id": "PR-2",
+        "text": "प्रतिवादी यांनी अडथळा दूर न केल्यास सदर अडथळा सक्षम अधिकाऱ्यामार्फत दूर करून रस्ता पूर्वीप्रमाणे खुला करून मिळावा."
+      },
+      {
+        "display_number": 3,
+        "master_prayer_id": "PR-3",
+        "text": "प्रतिवादी यांनी वादी यांच्या सदर रस्त्याच्या वापरास भविष्यात कोणत्याही प्रकारे अडथळा निर्माण करू नये, असा मनाई आदेश देण्यात यावा."
+      }
+    ],
+    "limitation": {
+      "mode": "REVIEW_ONLY",
+      "flag": "SIX_MONTH_BOUNDARY_OR_LATE",
+      "threshold": "2026-07-01",
+      "within_limit_statement_allowed": false,
+      "warning": "सहा महिन्यांच्या मुदतीचा प्रश्न आहे. हा मसुदा फक्त कायदेशीर पुनरावलोकनासाठी आहे; न्यायालयात सादर करण्यास तयार असल्याचे प्रमाणपत्र नाही."
+    }
+  }
+}

@@ -1,0 +1,9 @@
+__pycache__/
+.pytest_cache/
+.env
+*.key
+*.pem
+*.log
+
+# Synthetic AI review exports; local review may be sensitive after provider runs
+qa/live_acceptance/live_synthetic_local_only/

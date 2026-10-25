@@ -1,0 +1,81 @@
+{
+  "scope": "MC5 only",
+  "source_date": "2026-10-23",
+  "reconciliation_date": "2026-10-24",
+  "release_status": "S7 reason labels 1-6 source-approved; per-screen full UI not universally frozen",
+  "global_visibility": "S7 hidden when obstruction status = 3; stale selections cannot be used in draft",
+  "required": false,
+  "no_reason_is_valid": true,
+  "reason_4_damages_nonautomatic": true,
+  "prayer4_selection": "APPROVED: separate explicit yes/no; no auto append from urgency checkbox; disabled for status 3",
+  "reasons": [
+    {
+      "id": "S7-1",
+      "label": "पेरणी किंवा लागवडीचा हंगाम संपत चालल्याने वेळेत पीक घेता येणार नाही.",
+      "wording_status": "USER_VERBATIM_APPROVED_2026_10_24",
+      "condition": "obstruction status 1/2 AND crop status = crop not grown due to obstruction OR no crop now, plan to grow",
+      "source": "Master Change Register V11, paragraphs 204–210; earlier V5 para 98–105"
+    },
+    {
+      "id": "S7-2",
+      "label": "उभ्या पिकांची मशागत, खते देणे किंवा निगा राखणे वेळेत करता येत नाही.",
+      "wording_status": "USER_VERBATIM_APPROVED_2026_10_24",
+      "condition": "obstruction status 1/2 AND crop status = standing crops",
+      "source": "Master Change Register V11 paras 204–210"
+    },
+    {
+      "id": "S7-3",
+      "label": "पीक काढणी किंवा शेतमालाची वाहतूक वेळेत करता येत नाही.",
+      "wording_status": "USER_VERBATIM_APPROVED_2026_10_24",
+      "condition": "obstruction status 1/2 AND (standing crops OR user-confirmed already harvested produce remains blocked for transport)",
+      "source": "Master Change Register V11 paras 207–210, V12 paras 216–231, V13 paras 235–247",
+      "subquestion": "रस्त्यावरील अडथळ्यामुळे नेमकी कोणती अडचण येत आहे?",
+      "subquestion_status": "APPROVED",
+      "multi_select_min": 1,
+      "suboptions": [
+        "पीक काढणीसाठी आवश्यक यंत्रसामग्री किंवा वाहने शेतात नेता येत नाहीत.",
+        "काढलेला शेतमाल शेतातून बाहेर नेता येत नाही.",
+        "भाजीपाला, फुले किंवा इतर पिकांची नियमित किंवा वारंवार काढणी व वाहतूक करण्यात अडचण येत आहे.",
+        "पीक काढणीसाठी आवश्यक मजूर किंवा इतर साधनसामग्री ने-आण करण्यात अडचण येत आहे."
+      ]
+    },
+    {
+      "id": "S7-4",
+      "label": "पिकांचे नुकसान होत आहे किंवा वेळेत शेतीकामे न झाल्यास नुकसान होण्याची अथवा वाढण्याची शक्यता आहे.",
+      "wording_status": "APPROVED_LATER_V9",
+      "condition": "obstruction status 1/2 AND crop status = standing crops",
+      "source": "Master Change Register V9 paras 177–181; V10 paras 193–198; V8 paras 160–170",
+      "subquestion": "पिकांच्या नुकसानीची स्थिती कोणती आहे?",
+      "subquestion_status": "APPROVED_V8",
+      "single_select": true,
+      "suboptions": [
+        "पिकांचे प्रत्यक्ष नुकसान होत आहे आणि वेळेत शेतीकामे न झाल्यास ते वाढण्याची शक्यता आहे.",
+        "पिकांचे अद्याप प्रत्यक्ष नुकसान झालेले नाही; परंतु वेळेत शेतीकामे न झाल्यास नुकसान होण्याची शक्यता आहे."
+      ]
+    },
+    {
+      "id": "S7-5",
+      "label": "शेतातील घराकडे जाण्या-येण्यास अडचण निर्माण झाली आहे.",
+      "wording_status": "APPROVED_LATER_V14_UNCHANGED",
+      "condition": "obstruction status 1/2, independent of crop status; requires a follow-up yes answer",
+      "source": "Master Change Register V14 paras 250–262",
+      "subquestion": "तुमच्या शेतात किंवा शेतजमिनीवर जाण्यासाठी वापरल्या जाणाऱ्या सदर रस्त्याच्या मार्गावर शेतातील घर आहे का?",
+      "subquestion_status": "APPROVED",
+      "single_select": true,
+      "suboptions": [
+        "होय",
+        "नाही"
+      ],
+      "rule": "if NO then omit S7-5"
+    },
+    {
+      "id": "S7-6",
+      "label": "शेतीच्या इतर आवश्यक कामांमध्ये विलंब होत असल्याने तातडीने रस्ता वापरणे आवश्यक आहे.",
+      "wording_status": "APPROVED_LATER_V15_UNCHANGED",
+      "condition": "obstruction status 1/2, independent of crop status",
+      "source": "Master Change Register V15 paras 265–275",
+      "suboptions": [],
+      "rule": "Do not add previously proposed five follow-up questions; urgency optional"
+    }
+  ]
+}

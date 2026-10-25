@@ -1,0 +1,21 @@
+test_cutoff_review_only (test_approved_decisions.ApprovedDecisions.test_cutoff_review_only) ... ok
+test_explicit_yes_inserts_pr4 (test_approved_decisions.ApprovedDecisions.test_explicit_yes_inserts_pr4) ... ok
+test_invalid_reason (test_approved_decisions.ApprovedDecisions.test_invalid_reason) ... ok
+test_missing_date_review_only (test_approved_decisions.ApprovedDecisions.test_missing_date_review_only) ... ok
+test_no_does_not_insert (test_approved_decisions.ApprovedDecisions.test_no_does_not_insert) ... ok
+test_no_reasons_cannot_add (test_approved_decisions.ApprovedDecisions.test_no_reasons_cannot_add) ... ok
+test_prayer_display_numbering (test_approved_decisions.ApprovedDecisions.test_prayer_display_numbering) ... ok
+test_preliminary_not_filing_ready (test_approved_decisions.ApprovedDecisions.test_preliminary_not_filing_ready) ... ok
+test_review_label (test_approved_decisions.ApprovedDecisions.test_review_label) ... ok
+test_six_month_late_review_only (test_approved_decisions.ApprovedDecisions.test_six_month_late_review_only) ... ok
+test_status3_no_stale_urgency (test_approved_decisions.ApprovedDecisions.test_status3_no_stale_urgency) ... ok
+test_status3_only_pr3 (test_approved_decisions.ApprovedDecisions.test_status3_only_pr3) ... ok
+test_status_1_default_three (test_approved_decisions.ApprovedDecisions.test_status_1_default_three) ... ok
+test_status_2_default_three (test_approved_decisions.ApprovedDecisions.test_status_2_default_three) ... ok
+test_three_labels_frozen (test_approved_decisions.ApprovedDecisions.test_three_labels_frozen) ... ok
+test_urgent_requires_answer (test_approved_decisions.ApprovedDecisions.test_urgent_requires_answer) ... ok
+
+----------------------------------------------------------------------
+Ran 16 tests in 0.001s
+
+OK

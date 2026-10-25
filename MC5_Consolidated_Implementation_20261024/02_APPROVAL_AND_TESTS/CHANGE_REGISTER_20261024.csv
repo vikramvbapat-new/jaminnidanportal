@@ -1,0 +1,9 @@
+﻿ID,Issue,Status,Final requirement / follow up,Evidence and approval
+A1,स्क्रीन ७ कारणे १–३,APPROVED_VERBATIM,"S7-1: पेरणी किंवा लागवडीचा हंगाम संपत चालल्याने वेळेत पीक घेता येणार नाही. | S7-2: उभ्या पिकांची मशागत, खते देणे किंवा निगा राखणे वेळेत करता येत नाही. | S7-3: पीक काढणी किंवा शेतमालाची वाहतूक वेळेत करता येत नाही.",V30 S7 source copy; user explicit approval 2026-10-24
+A2,तातडीच्या सुनावणीची मागणी,APPROVED,तातडीचे कारण निवडले तरी PR4 आपोआप जोडू नये. स्वतंत्र होय/नाही उत्तर आवश्यक. होय असल्यास आणि status 1/2 असेल तरच PR4 समाविष्ट.,User explicit approval 2026-10-24
+L2,सहा महिन्यांच्या पुढील प्रकरणे,APPROVED,पुनरावलोकनासाठी इशाऱ्यासह Word मसुदा देता येईल; दाखल करण्यास तयार असल्याचे प्रमाणपत्र/लेबल देऊ नये.,User explicit approval 2026-10-24
+A3,उर्वरित प्रश्नावली शब्दांकन,REVIEW_ONLY_IF_NEEDED,मूळ मंजूर शब्दांकन कायम; प्रत्यक्ष अनिश्चितता/विसंगती असल्यासच मर्यादित निर्णय. बाकीची UI QA विकासकाने करावी.,User minimal-approvals direction
+A4,सात Alias / canonical IDs,DEVELOPER_TECHNICAL_QA,मूळ IDs सुरक्षित; प्रस्तावित alias route/duplicate तपासणी व migrations; वापरकर्त्याची स्वतंत्र routine मंजुरी आवश्यक नाही.,V24 mapping and user minimal-approvals direction
+A5,अंतिम Word प्रत्यक्ष नमुना,USER_VISUAL_REVIEW_WHEN_READY,तीन स्थितींतील संपूर्ण तथ्य-पुष्टी नमुने तयार करून एकदाच अंतिम परीक्षणासाठी सादर करावेत.,User minimal-approvals direction
+L1,PR2 कायदेशीर आधार,INDEPENDENT_LEGAL_REVIEW_REQUIRED,मूळ मंजूर प्रार्थना बदलायची नाही; सक्षम अधिकाऱ्यामार्फत अंमलबजावणीचा कायदेशीर आधार स्वतंत्र तपासणे.,Master approved spec section 5 and 10
+E1,AI/OCR/OTP/साठवण,IMPLEMENTATION_NOT_COMPLETED,"Security, real provider and actual deletion tests required; mock tests insufficient.",V28 build gates

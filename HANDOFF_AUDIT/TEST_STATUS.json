@@ -1,0 +1,13 @@
+{
+  "date": "2026-10-24",
+  "mode": "offline source and synthetic tests only",
+  "unit_tests": 61,
+  "unit_tests_passed": 61,
+  "synthetic_cases": 4,
+  "real_external_ai_calls": 0,
+  "provider_live_test": "NOT_EXECUTED_NO_CREDENTIALS",
+  "offline_fake_review_acceptance": "CORRECTLY_BLOCKED",
+  "required_general_human_reviews": 36,
+  "required_paragraph_reviews": "All included paragraphs of each case",
+  "output_not_production_ready": true
+}

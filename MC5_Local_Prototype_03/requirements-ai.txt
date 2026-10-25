@@ -1,0 +1,3 @@
+-r requirements.txt
+# Optional external AI integration only; no provider calls without explicit opt-in.
+openai>=2,<4

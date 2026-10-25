@@ -1,0 +1,131 @@
+{
+  "version": "MC5 implementation baseline 2026-10-24 three express approvals applied over V30",
+  "legal_module": "MC5",
+  "cross_module": "MC143 isolated",
+  "approval_state": "PARTIALLY_FROZEN_FOR_IMPLEMENTATION; NOT_PRODUCTION_APPROVED",
+  "paragraphs": [
+    {
+      "number": 1,
+      "subject": "जमिनींचा संबंध",
+      "immutable_number": true
+    },
+    {
+      "number": 2,
+      "subject": "रस्त्याचे पूर्वअस्तित्व",
+      "immutable_number": true
+    },
+    {
+      "number": 3,
+      "subject": "रस्त्याचा मार्ग व मोजमाप",
+      "immutable_number": true
+    },
+    {
+      "number": 4,
+      "subject": "शेती व रस्त्याचा पूर्वीचा वापर",
+      "immutable_number": true
+    },
+    {
+      "number": 5,
+      "subject": "अडथळ्याची तारीख व ठिकाण",
+      "immutable_number": true
+    },
+    {
+      "number": 6,
+      "subject": "अडथळ्याचे स्वरूप व सद्यस्थिती",
+      "immutable_number": true
+    },
+    {
+      "number": 7,
+      "subject": "रस्त्याच्या वापरावरील परिणाम",
+      "immutable_number": true
+    },
+    {
+      "number": 8,
+      "subject": "अडचणी व नुकसान",
+      "immutable_number": true
+    },
+    {
+      "number": 9,
+      "subject": "तातडीची कारणे",
+      "immutable_number": true
+    },
+    {
+      "number": 10,
+      "subject": "रस्त्याच्या अस्तित्वाचे पुरावे",
+      "immutable_number": true
+    },
+    {
+      "number": 11,
+      "subject": "पूर्वीचे प्रयत्न व प्रतिसाद",
+      "immutable_number": true
+    },
+    {
+      "number": 12,
+      "subject": "दाव्यास कारण",
+      "immutable_number": true
+    },
+    {
+      "number": 13,
+      "subject": "अधिकारक्षेत्र व मुदत",
+      "immutable_number": true
+    }
+  ],
+  "approved_paragraph_edits": {
+    "P01_final_sentence": "याच रस्त्यावरील अडथळा हा प्रस्तुत दाव्याचा विषय आहे.",
+    "P02": "no evidence text; evidence goes to P10",
+    "P03": "plaintiff-field first; village road connection only when confirmed",
+    "P12_title": "दाव्यास कारण :"
+  },
+  "status_prayers": {
+    "1": [
+      "PR-1",
+      "PR-2",
+      "PR-3"
+    ],
+    "2": [
+      "PR-1",
+      "PR-2",
+      "PR-3"
+    ],
+    "3": [
+      "PR-3"
+    ]
+  },
+  "urgency_PR4": "APPROVED: require explicit separate YES/NO after urgency reason; YES adds PR4 only for obstruction status 1/2; never automatic",
+  "land_table": {
+    "five_columns": [
+      "पक्षकार",
+      "गाव",
+      "गट क्रमांक/सर्वे क्रमांक",
+      "क्षेत्र (हे. आर.)",
+      "आकार (₹)"
+    ],
+    "cultivable_and_potkharab_separate": true
+  },
+  "limitation_policy": {
+    "verified_date_required_to_assert_within_limit": true,
+    "warning_and_review_word_for_over_six_months": "V6 source approval",
+    "filing_ready_label": "BLOCK pending individual legal validation; implementation candidate, not a legal opinion",
+    "two_stage_approved_by_user_2026_10_24": {
+      "review_only_word": "Allowed with conspicuous warning when date check raises late/uncertain result; not suitable for court submission without independent review",
+      "filing_ready": "Never auto-certify late/uncertain case; independent legal review required",
+      "no_automatic_timeliness_sentence": "If dates unverified or expired, do not assert filed within limitation"
+    }
+  },
+  "retention": {
+    "expires_days_from_questionnaire_first_start": 30,
+    "word_download_does_not_reset": true,
+    "uploads_and_docx_delete_on_expiry": true
+  },
+  "pending_signoffs": [
+    "other_visible_UI_wording_if_material_unresolved",
+    "final_Word_render_visual_review",
+    "prayer2_legal_implementation_validation",
+    "production_AI_OCR_OTP_storage_security_tests"
+  ],
+  "user_decisions_2026_10_24": {
+    "A1_s7_labels_1_2_3": "APPROVED_VERBATIM",
+    "A2_prayer4": "SEPARATE_YES_NO_REQUIRED",
+    "L2_late_case": "TWO_STAGE_REVIEW_ONLY_WORD_AND_NO_FILING_READY_CERTIFICATION"
+  }
+}

@@ -1,0 +1,87 @@
+[
+  {
+    "path": "01_IMPLEMENTATION/DEVELOPER_READ_FIRST.md",
+    "sha256": "9c31aa9b341fc745c3153e06d4f63a7995d98d95b6fd8514dc9b4670e450a668",
+    "size_bytes": 2984
+  },
+  {
+    "path": "01_IMPLEMENTATION/MASTER_IMPLEMENTATION_CONTRACT.json",
+    "sha256": "a98c7540bb378537e12996fd58d5f1c063873177cdb498e81a052fef7db42ca9",
+    "size_bytes": 4500
+  },
+  {
+    "path": "01_IMPLEMENTATION/MC5_Developer_Implementation_Specification_MR.docx",
+    "sha256": "c1650b94efc41195363487f1829b14283934f6fce17cc3456acd7030b3eecdde",
+    "size_bytes": 40464
+  },
+  {
+    "path": "01_IMPLEMENTATION/REMAINING_RELEASE_CHECKLIST.md",
+    "sha256": "49991cc700322344653c9664b89b90b9330cb366a747d6ebd3a9bf784c82cd4a",
+    "size_bytes": 1508
+  },
+  {
+    "path": "01_IMPLEMENTATION/S7_FINAL_APPROVED_RULES.json",
+    "sha256": "45ba39e609120c5f7f16183c8fc23d3f7718ae7d9138817c2e76bb3b36652439",
+    "size_bytes": 5788
+  },
+  {
+    "path": "01_IMPLEMENTATION/__pycache__/rules_reference.cpython-313.pyc",
+    "sha256": "7f9c06325cc23de03b17df1a44eff30791b445d27db6b143812cc51ca5528c3b",
+    "size_bytes": 7968
+  },
+  {
+    "path": "01_IMPLEMENTATION/rules_reference.py",
+    "sha256": "f492caa7163cc284a8a7714d4236b5d34c4ec37a9b23b2fece4feff53a205ecc",
+    "size_bytes": 7007
+  },
+  {
+    "path": "02_APPROVAL_AND_TESTS/CHANGE_REGISTER_20261024.csv",
+    "sha256": "723bfa162b297c32f16bda6399674bab16e623c1c486a466a986daf4247d3c92",
+    "size_bytes": 3242
+  },
+  {
+    "path": "02_APPROVAL_AND_TESTS/__pycache__/test_approved_decisions.cpython-313.pyc",
+    "sha256": "aaf7822a550448601a31e91c01193c8b72f20fc5c90d4d4eed46a247f68a0c8f",
+    "size_bytes": 6709
+  },
+  {
+    "path": "02_APPROVAL_AND_TESTS/approved_rule_examples.json",
+    "sha256": "66a38227679e49aa669feb73cccf684d1ce40c3391a445404c0f2b9765b04030",
+    "size_bytes": 6421
+  },
+  {
+    "path": "02_APPROVAL_AND_TESTS/test_approved_decisions.py",
+    "sha256": "28c9f275e64ced4085113a3789bda96a0112df031e29f22cc4db4437ca168ea5",
+    "size_bytes": 2462
+  },
+  {
+    "path": "02_APPROVAL_AND_TESTS/test_execution_log.txt",
+    "sha256": "c9556a242d69d9b178d4e0714ce0e322da97ece9645f5e74af764b40431dc615",
+    "size_bytes": 1775
+  },
+  {
+    "path": "03_SOURCE_REFERENCE/MC5_Master_Approved_Specification_20261023.docx",
+    "sha256": "e2b3b2606679b7acdfda314dcf18e93f7a4bdc73755d2131ed459e08b3c574e1",
+    "size_bytes": 44065
+  },
+  {
+    "path": "03_SOURCE_REFERENCE/MC5_V30_COMPLETE_UNMODIFIED.zip",
+    "sha256": "84b119df98a2e45b99c91b78f337db93df06fdcb6a50d42849e455b64fa0906f",
+    "size_bytes": 2894805
+  },
+  {
+    "path": "03_SOURCE_REFERENCE/V28_Draft_Approval_States.md",
+    "sha256": "72c8a28b4df5d7a492c574ef88d295e590e56408e69364889da8060c62ee2eca",
+    "size_bytes": 3512
+  },
+  {
+    "path": "03_SOURCE_REFERENCE/V29_S7_Approved_Options_and_Conditions.json",
+    "sha256": "ff0b758dcb5228da6aef350837c22b7f40c6fba07e450dc6c40284a1d5f706c1",
+    "size_bytes": 5934
+  },
+  {
+    "path": "03_SOURCE_REFERENCE/V30_47_Field_UI_Source_Register.csv",
+    "sha256": "f97b17ad56b79c89ae3e4f18e25a357883234065c5be58cd897f1e8876b8f946",
+    "size_bytes": 15191
+  }
+]

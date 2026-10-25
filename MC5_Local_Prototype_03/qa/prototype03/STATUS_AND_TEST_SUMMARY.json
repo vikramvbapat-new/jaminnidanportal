@@ -1,0 +1,17 @@
+{
+  "release_label": "MC5 Local Prototype 03 — controlled AI synthetic-only smoke test readiness",
+  "local_pytest": {"passed": 36, "failed": 0},
+  "offline_fake_provider_qa_cases": 4,
+  "external_ai_calls_performed_in_this_release": 0,
+  "openai_key_available_in_build_environment": false,
+  "human_marathi_language_approval": false,
+  "court_ready": false,
+  "security_review_complete": false,
+  "required_before_live_call": [
+    "Developer-provided model and secret through secure environment",
+    "Server-level AI opt-in",
+    "Explicit synthetic-only CLI flag",
+    "Separate environment approval for synthetic live testing"
+  ],
+  "notes": "Four generated Word QA documents are fake-provider synthetic examples, not AI-authored legal petitions."
+}

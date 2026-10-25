@@ -1,0 +1,14 @@
+{
+  "readiness": "NOT_READY",
+  "satisfied": [],
+  "missing_or_unapproved": [
+    "MC5_AI_ALLOW_EXTERNAL",
+    "MC5_AI_MODEL",
+    "MC5_AI_PROVIDER",
+    "MC5_LIVE_SYNTHETIC_TEST_APPROVED",
+    "OPENAI_API_KEY",
+    "openai_package"
+  ],
+  "external_calls_made": 0,
+  "notice": "Preflight never sends requests, checks no API validity, and is not a live AI test."
+}

@@ -1,0 +1,465 @@
+{
+  "source": "Safety patch Prototype 03 + tested acceptance gate",
+  "items": [
+    {
+      "path": ".gitignore",
+      "sha256": "9aee4011d3994992308e5f30b76104edace779ee3e0c1265ea9cab991189470c",
+      "bytes": 179
+    },
+    {
+      "path": ".pytest_cache/.gitignore",
+      "sha256": "3ed731b65d06150c138e2dadb0be0697550888a6b47eb8c45ecc9adba8b8e9bd",
+      "bytes": 37
+    },
+    {
+      "path": ".pytest_cache/CACHEDIR.TAG",
+      "sha256": "37dc88ef9a0abeddbe81053a6dd8fdfb13afb613045ea1eb4a5c815a74a3bde4",
+      "bytes": 191
+    },
+    {
+      "path": ".pytest_cache/README.md",
+      "sha256": "73fd6fccdd802c419a6b2d983d6c3173b7da97558ac4b589edec2dfe443db9ad",
+      "bytes": 302
+    },
+    {
+      "path": ".pytest_cache/v/cache/lastfailed",
+      "sha256": "44136fa355b3678a1146ad16f7e8649e94fb4fc21fe77e8310c060f61caaff8a",
+      "bytes": 2
+    },
+    {
+      "path": ".pytest_cache/v/cache/nodeids",
+      "sha256": "c206d118363fb9a1737b5ce80c2fd9e35066d8eb3dacf3947158434bb22d5675",
+      "bytes": 7649
+    },
+    {
+      "path": "LIVE_AI_ACCEPTANCE_MANIFEST.json",
+      "sha256": "ad5f2e6c4017b9a874900ca69e8a374c92f03cd069c013fd0f56a08b4e379ff4",
+      "bytes": 8815
+    },
+    {
+      "path": "PATCH_SHA256_MANIFEST.json",
+      "sha256": "d5c4255c1b519445f49de904d03b40f418dcf34a67e0e93c82f3c58279006e69",
+      "bytes": 9511
+    },
+    {
+      "path": "README_FIRST.md",
+      "sha256": "8130548f3b0265b6d87f94efdba460cc8f87469f451b02ef78544c371affcdb8",
+      "bytes": 10263
+    },
+    {
+      "path": "README_LIVE_AI_ACCEPTANCE.md",
+      "sha256": "769f674141fa1e3cc0e066cb1e1003ce76f0cfae6902d448309b708e0cd1d377",
+      "bytes": 5671
+    },
+    {
+      "path": "README_LIVE_EXECUTION_HANDOFF_MR.md",
+      "sha256": "961b4b2e232dfacc8e794376a8a9db05c58612e83edb536ac962eca78defc929",
+      "bytes": 7826
+    },
+    {
+      "path": "README_PROTOTYPE03.md",
+      "sha256": "25cf21dfe67fa1bd6a06b1868ae10a9ef98387cc69854de2b653bcf023ce6e79",
+      "bytes": 7134
+    },
+    {
+      "path": "README_SAFETY_REVIEW_20261024.md",
+      "sha256": "5d6dad5b93e05ee232557795fe1288600c046d424af343b2f252030e68e4faef",
+      "bytes": 5917
+    },
+    {
+      "path": "SHA256_MANIFEST.json",
+      "sha256": "3ea29267ca071ceaa3bf19350b2f88345d03130ee17ff6abf252a344ae25019d",
+      "bytes": 4215
+    },
+    {
+      "path": "START_LOCAL.sh",
+      "sha256": "11f43f48fcd478b6e01f2eb8eebd77b491338302dda2aa89802d95bbe342eb5e",
+      "bytes": 137
+    },
+    {
+      "path": "START_WINDOWS.bat",
+      "sha256": "e708bc56c35b195aba91424a4cf90a957572c64b01bf92d19b6c33752c92de6c",
+      "bytes": 100
+    },
+    {
+      "path": "app/__init__.py",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "app/__pycache__/__init__.cpython-313.pyc",
+      "sha256": "87ae20c01e3c91f429c725336b7e6a730d0f21e422619ce60c07f8085bff982b",
+      "bytes": 181
+    },
+    {
+      "path": "app/__pycache__/controlled_ai.cpython-313.pyc",
+      "sha256": "611165a26d5877c232f94aa031a75e59a637a1e57e23fea452072eea5d09389d",
+      "bytes": 23785
+    },
+    {
+      "path": "app/__pycache__/engine.cpython-313.pyc",
+      "sha256": "bd8c408ff1f7fcda8cb9692afbcdc675de089deae1d64514a5186ecacd159d8e",
+      "bytes": 34333
+    },
+    {
+      "path": "app/__pycache__/reference_rules.cpython-313.pyc",
+      "sha256": "56e158f699c3675998ed81aab149ea3f96e7d104f146b2a287aa5d67ef542cc1",
+      "bytes": 7972
+    },
+    {
+      "path": "app/__pycache__/semantic_guard.cpython-313.pyc",
+      "sha256": "d86226a95eba11f83b7354b9b417be3f7f6c961b14beadf862ee13b327e85712",
+      "bytes": 4964
+    },
+    {
+      "path": "app/__pycache__/server.cpython-313.pyc",
+      "sha256": "adc2fcec6af9e281ee72672fed75d4b8f39cbbdf08013c51aa2985653a9071ce",
+      "bytes": 8916
+    },
+    {
+      "path": "app/controlled_ai.py",
+      "sha256": "bfa5eceb232a0aceaaa1ecff1a1240d4b8a3fd591035291b944313b414d2e6eb",
+      "bytes": 15248
+    },
+    {
+      "path": "app/engine.py",
+      "sha256": "5a3fcca4a3fc9b733c88ee27d0601c054e5cd4c7731e21db292ad471c2f935f2",
+      "bytes": 22743
+    },
+    {
+      "path": "app/reference_rules.py",
+      "sha256": "f492caa7163cc284a8a7714d4236b5d34c4ec37a9b23b2fece4feff53a205ecc",
+      "bytes": 7007
+    },
+    {
+      "path": "app/semantic_guard.py",
+      "sha256": "ab408092e8c3ed42685e26862a4da1ac2aea7b89d658c3111417776bce52edc6",
+      "bytes": 3891
+    },
+    {
+      "path": "app/server.py",
+      "sha256": "59287dda5e4680fce8dc091aaa30048b453a3287e1fbdf4a543462575bbf1df4",
+      "bytes": 5158
+    },
+    {
+      "path": "app/static/app.js",
+      "sha256": "de2d4e72b30c0cb3418ba8a5e8c30dd5a869fb8565d834936d9aee155f766819",
+      "bytes": 13284
+    },
+    {
+      "path": "app/static/index.html",
+      "sha256": "4a06fef6ed20fc557d6dac3b192896fc236f4d49db3d006373c9338dda5337e8",
+      "bytes": 15102
+    },
+    {
+      "path": "app/static/styles.css",
+      "sha256": "788dd50bf372e52cb925f618f4d91fcf0d50ec1ef95701a57b1d2b80ef315842",
+      "bytes": 3696
+    },
+    {
+      "path": "qa/MC5_AI_MOCK_QA_REVIEW_ONLY.docx",
+      "sha256": "11046249017def759b8f15fb49ec3d9adfa0dc719416fa1f8cd94bbc32d64108",
+      "bytes": 38899
+    },
+    {
+      "path": "qa/Mobile_AI_Review_Static.png",
+      "sha256": "e63a260ddfc2b44e15a6a3bf8b5787c0f44ba117813aa7690b135416a2a75f79",
+      "bytes": 102179
+    },
+    {
+      "path": "qa/QA_REPORT.md",
+      "sha256": "20475ef2f4fd357470a4248937667541ae3110b03424e69ed4abfc5fac24da41",
+      "bytes": 1668
+    },
+    {
+      "path": "qa/live_acceptance/acceptance_criteria.csv",
+      "sha256": "74188052d69bf1081ff12575a1c48a17bb093b8da93bb264713944da706a6080",
+      "bytes": 1481
+    },
+    {
+      "path": "qa/live_acceptance/offline_fake/HUMAN_SCORECARD.csv",
+      "sha256": "ebeb1abcc0eb2fd5f0253a18728dc56766de82d6bc9920c9d01fcff833dc8458",
+      "bytes": 4716
+    },
+    {
+      "path": "qa/live_acceptance/offline_fake/PARAGRAPH_SCORECARD.csv",
+      "sha256": "bddb2f07bac0411cc24912e565f82db41aecd1c4a4a767d13b52a345f18afe37",
+      "bytes": 6079
+    },
+    {
+      "path": "qa/live_acceptance/offline_fake/S01_OBSTRUCTION_EXISTS_PARAGRAPH_COMPARISON.docx",
+      "sha256": "63d3fec17947f0490a3effa0e3b8dc240809f93ffd688892b05b716812510216",
+      "bytes": 39027
+    },
+    {
+      "path": "qa/live_acceptance/offline_fake/S01_OBSTRUCTION_EXISTS_REVIEW_ONLY.docx",
+      "sha256": "f86a1e081b4068d37d67a8dd8d49a34455e34574ef6f39332d3b9bb74187557e",
+      "bytes": 38717
+    },
+    {
+      "path": "qa/live_acceptance/offline_fake/S02_PARTIALLY_REMOVED_URGENT_PARAGRAPH_COMPARISON.docx",
+      "sha256": "ab9e422f7f57289f59d84b8d7d460011634271b3b4d8b70e44d1be24c0a78fdd",
+      "bytes": 39314
+    },
+    {
+      "path": "qa/live_acceptance/offline_fake/S02_PARTIALLY_REMOVED_URGENT_REVIEW_ONLY.docx",
+      "sha256": "3123d79013770f42a65d130ad95b05d60ac600be1a383d74459612d4decbd7c7",
+      "bytes": 38899
+    },
+    {
+      "path": "qa/live_acceptance/offline_fake/S03_REMOVED_INJUNCTION_ONLY_PARAGRAPH_COMPARISON.docx",
+      "sha256": "b1fc6f57b257f8723e7d2c9c420934c33177cbb5683d543089e4548e6dd466dc",
+      "bytes": 38987
+    },
+    {
+      "path": "qa/live_acceptance/offline_fake/S03_REMOVED_INJUNCTION_ONLY_REVIEW_ONLY.docx",
+      "sha256": "a14917d619e3cc7d9094f61e45de1308eba38401f2c9f83ab90e131c39b736a2",
+      "bytes": 38650
+    },
+    {
+      "path": "qa/live_acceptance/offline_fake/S04_LIMITATION_REVIEW_ONLY_PARAGRAPH_COMPARISON.docx",
+      "sha256": "89e7cd5f3d220c9ab5155870a9293d0cc249e0778ea4037e7fc2880748e11939",
+      "bytes": 39020
+    },
+    {
+      "path": "qa/live_acceptance/offline_fake/S04_LIMITATION_REVIEW_ONLY_REVIEW_ONLY.docx",
+      "sha256": "6d4666b0ebe8a4433c4bd1f52ff6348b93c7ed80902b3db5c7e511970f44b24f",
+      "bytes": 38783
+    },
+    {
+      "path": "qa/live_acceptance/offline_fake/SUMMARY.json",
+      "sha256": "b228a4c1d02a4b3c235105e83dde77bdc9f5e28c96e9749cbcdf3a20163adb15",
+      "bytes": 2767
+    },
+    {
+      "path": "qa/prototype03/FOUR_SCENARIO_QA_MATRIX.csv",
+      "sha256": "22a1407293563103c5a704727f72107c02bf99c32eaed682b28b5051f44960fa",
+      "bytes": 1026
+    },
+    {
+      "path": "qa/prototype03/HUMAN_REVIEW_CHECKLIST.md",
+      "sha256": "0c1651732b567c21cb38e19224fb2b583c5f4fffd39f43fe18ab5e34bd0c59a2",
+      "bytes": 2620
+    },
+    {
+      "path": "qa/prototype03/S01_OBSTRUCTION_EXISTS_FAKE_PROVIDER_REVIEW_ONLY.docx",
+      "sha256": "04f7ee2a4cdd1678e0cdbfe5989f1bd2f289156ebb4bf311f66cff49235cdced",
+      "bytes": 38717
+    },
+    {
+      "path": "qa/prototype03/S02_PARTIALLY_REMOVED_URGENT_FAKE_PROVIDER_REVIEW_ONLY.docx",
+      "sha256": "34c1834fb36e040912c1dc52f407a8ab964717789e209fccabc06c033d870e55",
+      "bytes": 38899
+    },
+    {
+      "path": "qa/prototype03/S03_REMOVED_INJUNCTION_ONLY_FAKE_PROVIDER_REVIEW_ONLY.docx",
+      "sha256": "6556d1d0831e862b2b618c824af0e16ee7c155771a92ba7f0f189896d5bb53b5",
+      "bytes": 38650
+    },
+    {
+      "path": "qa/prototype03/S04_LIMITATION_REVIEW_ONLY_FAKE_PROVIDER_REVIEW_ONLY.docx",
+      "sha256": "541d7b999440e5f2c6f4265f9c20b0cb49fe9b2e8d4948514180653e5cce08c9",
+      "bytes": 38783
+    },
+    {
+      "path": "qa/prototype03/STATUS_AND_TEST_SUMMARY.json",
+      "sha256": "da07701e62c2b2f14c342c7451524f189c7779062f1227d2a19078aa4855621c",
+      "bytes": 758
+    },
+    {
+      "path": "qa/render/page-1.png",
+      "sha256": "15dc3e682a6d7c38ac9051df6a995c54fe490de2c6c958e368e0b1ef3b85f43c",
+      "bytes": 285028
+    },
+    {
+      "path": "qa/render/page-2.png",
+      "sha256": "ae83601f59e5406c68fd9c4de6afa79c7e96179225a8caad60161499ac92c3cb",
+      "bytes": 309498
+    },
+    {
+      "path": "requirements-ai.txt",
+      "sha256": "3d390ab8e251773e8b90c4763cabeeb86a5223ba9137a88b4e7fc28290a658b8",
+      "bytes": 117
+    },
+    {
+      "path": "requirements-dev.txt",
+      "sha256": "c23feb58b6f9cab899b3e457b6cad56158f5315b366cd0f7a210feef72af395b",
+      "bytes": 49
+    },
+    {
+      "path": "requirements.txt",
+      "sha256": "92eae50e11d47400fc7f59b371da1d9da1783deb05e31d291324b543b8f705a1",
+      "bytes": 79
+    },
+    {
+      "path": "scripts/__init__.py",
+      "sha256": "31f63c357c9669b619505945408afbc0a274d8cc83edee6778581914e9d6f7da",
+      "bytes": 68
+    },
+    {
+      "path": "scripts/__pycache__/__init__.cpython-313.pyc",
+      "sha256": "99c7978664cd1cdd98ef14247a677992e676fa8850c53eda8d2367dd2af67aa9",
+      "bytes": 261
+    },
+    {
+      "path": "scripts/__pycache__/check_live_ai_readiness.cpython-313.pyc",
+      "sha256": "51290ae0e74af63dfa1e126003e8ef39f32c9235ad16d8e707d72e381ea66e1c",
+      "bytes": 2523
+    },
+    {
+      "path": "scripts/__pycache__/live_ai_acceptance_review.cpython-313.pyc",
+      "sha256": "d555fdf6af036411227c3233c1b3ba6b7cd734a501dc6076b74b5752804fb5d3",
+      "bytes": 14454
+    },
+    {
+      "path": "scripts/__pycache__/live_ai_synthetic_smoke.cpython-313.pyc",
+      "sha256": "19af3781e2fa1106a16cf019ddff001fb967d4308c24ef9a9cae6217dcc1b473",
+      "bytes": 7088
+    },
+    {
+      "path": "scripts/__pycache__/verify_human_acceptance.cpython-313.pyc",
+      "sha256": "76a54ed4808bfee0aecbe95c759dfcd3d01afdce4215b0a38d0e95aa30b95a7a",
+      "bytes": 14227
+    },
+    {
+      "path": "scripts/check_live_ai_readiness.py",
+      "sha256": "e6c99e5d9d8b6a51cc62a0fd16c1de8c14835ff188541f8dfea08fa63ff19f80",
+      "bytes": 1216
+    },
+    {
+      "path": "scripts/live_ai_acceptance_review.py",
+      "sha256": "2b780d83b277bdb118211855504f077df61d15dea7643453ca21526d0157ef5f",
+      "bytes": 9090
+    },
+    {
+      "path": "scripts/live_ai_synthetic_smoke.py",
+      "sha256": "b104affe1c3ab02060b616a9f07c84eb7ed89108a3ae4084240d32fd1055eae6",
+      "bytes": 4596
+    },
+    {
+      "path": "scripts/offline_four_scenario_qa.py",
+      "sha256": "2302f1d825e1d64dcce876f9c6e0d2063176abfe86c2b6b61ff09a7122983827",
+      "bytes": 5437
+    },
+    {
+      "path": "scripts/verify_human_acceptance.py",
+      "sha256": "f4818ca6edb75ec12f411177ed9be89af1a737b095e0cbb3b7949e1535745a0d",
+      "bytes": 8511
+    },
+    {
+      "path": "source_baseline/MASTER_IMPLEMENTATION_CONTRACT.json",
+      "sha256": "a98c7540bb378537e12996fd58d5f1c063873177cdb498e81a052fef7db42ca9",
+      "bytes": 4500
+    },
+    {
+      "path": "source_baseline/MC5_Developer_Implementation_Specification_MR.docx",
+      "sha256": "c1650b94efc41195363487f1829b14283934f6fce17cc3456acd7030b3eecdde",
+      "bytes": 40464
+    },
+    {
+      "path": "source_baseline/Master_Approved_Specification_20261023.docx",
+      "sha256": "e2b3b2606679b7acdfda314dcf18e93f7a4bdc73755d2131ed459e08b3c574e1",
+      "bytes": 44065
+    },
+    {
+      "path": "source_baseline/S7_FINAL_APPROVED_RULES.json",
+      "sha256": "45ba39e609120c5f7f16183c8fc23d3f7718ae7d9138817c2e76bb3b36652439",
+      "bytes": 5788
+    },
+    {
+      "path": "tests/__pycache__/test_controlled_ai.cpython-313-pytest-9.0.2.pyc",
+      "sha256": "ccdd9fef4bbd61c1f2f1eb590e662dea2b4ca9fff805136cf94796268c06e4a9",
+      "bytes": 37816
+    },
+    {
+      "path": "tests/__pycache__/test_engine.cpython-313-pytest-9.0.2.pyc",
+      "sha256": "78ed614914bf3d2c4b793462aaaa909d8ca9b436704fb5e14b94d83a38732f13",
+      "bytes": 22316
+    },
+    {
+      "path": "tests/__pycache__/test_engine.cpython-313.pyc",
+      "sha256": "35003ac43b7d0cd38364dc75a7258630901fe1957f703a1415ae3bb7d89106f0",
+      "bytes": 11146
+    },
+    {
+      "path": "tests/__pycache__/test_live_ai_acceptance_review.cpython-313-pytest-9.0.2.pyc",
+      "sha256": "00ca5c44e8605b0cc266de61026ec110886b9594143e17b3bfa46c56a5cf4227",
+      "bytes": 12048
+    },
+    {
+      "path": "tests/__pycache__/test_live_ai_preflight.cpython-313-pytest-9.0.2.pyc",
+      "sha256": "7f3a392412b5243663b65293edd0e54e5879c22416fb38fb94b431161ec15340",
+      "bytes": 2955
+    },
+    {
+      "path": "tests/__pycache__/test_openai_adapter_contract.cpython-313-pytest-9.0.2.pyc",
+      "sha256": "00d0213563e0f23e6d50e35163899aa46ba9c7946d643ef85edd54d002df01c4",
+      "bytes": 8513
+    },
+    {
+      "path": "tests/__pycache__/test_provider_live_contract.cpython-313-pytest-9.0.2.pyc",
+      "sha256": "76948d0d439376b26080cbf5419fb443956ab388a614516f649089925414bd8f",
+      "bytes": 10913
+    },
+    {
+      "path": "tests/__pycache__/test_semantic_guard.cpython-313-pytest-9.0.2.pyc",
+      "sha256": "7bb38d1e44c17b01dbabe4936fe6fdf1c6d94f5a5dc2c1ffc6d8c1e7cb4e3fa8",
+      "bytes": 6337
+    },
+    {
+      "path": "tests/__pycache__/test_server.cpython-313-pytest-9.0.2.pyc",
+      "sha256": "778d8d380130b389db88da1ee0876e15ae17f14c505eebf16e189c3b8fe0338a",
+      "bytes": 8100
+    },
+    {
+      "path": "tests/__pycache__/test_verify_human_acceptance.cpython-313-pytest-9.0.2.pyc",
+      "sha256": "13aed7869fce282e1500be079b68293452502306fbe525d8f212514bd317eb85",
+      "bytes": 19748
+    },
+    {
+      "path": "tests/test_controlled_ai.py",
+      "sha256": "14c404c4a33ef9d7f5a330f3f64bb59d10580ad15ffd2489e9a22fd406c35f1b",
+      "bytes": 8797
+    },
+    {
+      "path": "tests/test_engine.py",
+      "sha256": "06ba27376435534c424562c6ec27a03a7624dcfdbb28da046726b489b482ec09",
+      "bytes": 5318
+    },
+    {
+      "path": "tests/test_live_ai_acceptance_review.py",
+      "sha256": "b61ee2c6c8ed7c5e0c8d9722e93e50b081d939415296b166828547963e8254c8",
+      "bytes": 1601
+    },
+    {
+      "path": "tests/test_live_ai_preflight.py",
+      "sha256": "4904b22d529676a04998c071152b2e751e67c280027548ffe7bb8aa480df175e",
+      "bytes": 517
+    },
+    {
+      "path": "tests/test_openai_adapter_contract.py",
+      "sha256": "d907ca80d7585e1c9b073a054884d2ff2994228441515643c33ce5414926f22c",
+      "bytes": 1932
+    },
+    {
+      "path": "tests/test_provider_live_contract.py",
+      "sha256": "b0892b58331abbf6db8e289e1be81bc7e82ac7af8c2fcb6e26d15b25269f44db",
+      "bytes": 3265
+    },
+    {
+      "path": "tests/test_semantic_guard.py",
+      "sha256": "204b8445807093f7550aa5cf40a49e8123af845a6d6d920c6c75e070dd5002ab",
+      "bytes": 2888
+    },
+    {
+      "path": "tests/test_server.py",
+      "sha256": "b005320335043bbcb836856b9260cd277aaeb50c8dbf962fb3736143703d45ce",
+      "bytes": 905
+    },
+    {
+      "path": "tests/test_verify_human_acceptance.py",
+      "sha256": "095915f072699c07fae75a2ca40568965b0d8ca47fd4e25a2677200131ca9d03",
+      "bytes": 5011
+    }
+  ]
+}

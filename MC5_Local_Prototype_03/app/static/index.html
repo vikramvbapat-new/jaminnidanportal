@@ -1,0 +1,57 @@
+<!doctype html><html lang="mr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="light"><title>जमीन निदान पोर्टल — कलम ५ | स्थानिक चाचणी</title><link rel="stylesheet" href="/styles.css"></head><body>
+<header class="top"><div class="max"><div class="brand">जमीन निदान पोर्टल <small>कलम ५ · स्थानिक चाचणी नमुना</small></div><span class="pill">चाचणी / NOT FOR FILING</span></div></header>
+<main class="max">
+<section class="intro"><h1>रस्त्यावरील अडथळ्याबाबत दाव्याची माहिती</h1><p>मामलेदार न्यायालय अधिनियम, १९०६ — कलम ५. हे केवळ स्थानिक विकासक-चाचणी साधन आहे. बाह्य AI जोडणी डिफॉल्टने बंद आहे; सातबारा OCR, OTP किंवा वापरकर्ता खाते चालू नाही. <strong>खरी वैयक्तिक माहिती चाचणीसाठी भरू नका.</strong></p></section>
+<nav class="steps" aria-label="अर्जाचे टप्पे"><button type="button" data-step="0" class="active">१ परिसर</button><button type="button" data-step="1">२ पक्षकार</button><button type="button" data-step="2">३ रस्ता</button><button type="button" data-step="3">४ अडथळा</button><button type="button" data-step="4">५ शेती व तातडी</button><button type="button" data-step="5">६ पुरावे व प्रयत्न</button><button type="button" data-step="6">७ पुनरावलोकन</button></nav>
+<form id="mainForm" novalidate>
+<section class="step show" data-page="0"><h2>१. परिसर व नकाशा</h2>
+<div class="note"><strong>महत्त्वाची सूचना:</strong> अधिकृत गाव/कॅडस्ट्रल नकाशा डाउनलोड किंवा प्रिंट करून त्यावर तुमची जमीन, वापरातील रस्ता आणि अडथळा लाल पेनाने दर्शवा. तो नकाशा उत्तर देताना जवळ ठेवा. <strong>या नमुन्यात नकाशा अपलोड नाही.</strong></div>
+<label class="choice"><input type="checkbox" id="mapAck"> वरील नकाशाविषयक सूचना वाचली.</label>
+<div class="twocol"><label>गाव <input id="village" placeholder="मौजे" required></label><label>तालुका <input id="taluka" required></label><label>जिल्हा <input id="district" required></label></div></section>
+<section class="step" data-page="1"><h2>२. वादी आणि प्रतिवादी</h2><p class="help">अनेक पक्षकार जोडता येतात. <b>७/१२ OCR अजून उपलब्ध नाही.</b> सर्व तपशील वापरकर्त्याने स्वतः पडताळून भरावेत.</p>
+<h3>वादी</h3><div id="plaintiffs"></div><button type="button" id="addPlaintiff" class="secondary">+ वादी जोडा</button>
+<h3>प्रतिवादी</h3><div id="defendants"></div><button type="button" id="addDefendant" class="secondary">+ प्रतिवादी जोडा</button>
+<div class="note">क्षेत्र: ७/१२ प्रमाणे लागवडीलायक व पोटखराब स्वतंत्र नोंदवा. आकार रुपये–पैसे स्वरूपात लिहा. या नमुन्यात OCR तुलना होत नाही.</div></section>
+<section class="step" data-page="2"><h2>३. पूर्वअस्तित्व, मार्ग व मोजमाप</h2>
+<label>रस्त्याच्या पूर्वीच्या वापराविषयी प्रत्यक्ष माहिती <textarea id="preexistingUse" rows="3" placeholder="तुम्ही पडताळलेल्या तथ्यांपुरतेच लिहा"></textarea></label>
+<label>वादीच्या शेतजमिनीपासून रस्त्याचा प्रत्यक्ष मार्ग <textarea id="routeDescription" rows="3" placeholder="मार्गावरील गट, वळणे व जोडरस्ता फक्त निश्चित असल्यास लिहा"></textarea></label>
+<label class="choice"><input id="villageRoad" type="checkbox"> हा मार्ग गाव रस्त्यापर्यंत जोडलेला आहे, याची खात्री आहे.</label>
+<div class="twocol"><label>अडथळ्यापूर्वीची सरासरी रुंदी (फूट) <input type="number" id="widthFt" min="0.1" step="0.1" required></label><label>अंदाजे लांबी (फूट) — ऐच्छिक <input type="number" id="lengthFt" min="0.1" step="0.1"></label></div></section>
+<section class="step" data-page="3"><h2>४. अडथळ्याची माहिती</h2>
+<div class="twocol"><label>सध्या दाव्यास कारणीभूत अडथळ्याची तारीख <input type="date" id="obstructionDate"></label><label>अडथळा असलेला गट क्रमांक <input id="obstructionGat" required></label></div>
+<fieldset><legend>गट क्रमांकाची खात्री</legend><label class="choice"><input name="gatConfidence" type="radio" value="exact" checked> निश्चित गट क्रमांक</label><label class="choice"><input name="gatConfidence" type="radio" value="approximate"> अंदाजे गट क्रमांक</label></fieldset>
+<fieldset><legend>अडथळा निर्माण करणाऱ्याची भूमिका</legend><label class="choice"><input type="radio" name="obstructorRole" value="स्वतः खातेदार" checked> स्वतः खातेदार</label><label class="choice"><input type="radio" name="obstructorRole" value="खातेदाराचा प्रतिनिधी"> खातेदाराचा प्रतिनिधी</label></fieldset>
+<label>अडथळ्याचे प्रत्यक्ष स्वरूप <textarea id="obstructionDescription" rows="3" placeholder="उदा. अडथळ्याचे प्रकार; केवळ प्रत्यक्ष पुष्टी झालेले तथ्य"></textarea></label>
+<fieldset><legend>अडथळ्याची सद्यस्थिती (तीन मंजूर पर्याय)</legend><div id="statusOptions"></div></fieldset>
+<label id="effectWrap">रस्त्याच्या वापरावरील प्रत्यक्ष परिणाम <textarea id="accessEffect" rows="2"></textarea></label><label>विशिष्ट अडचणी किंवा प्रत्यक्ष नुकसान — असल्यास <textarea id="specificHarm" rows="2" placeholder="नसल्यास रिकामे ठेवा; आर्थिक नुकसान अंदाजाने लिहू नका"></textarea></label></section>
+<section class="step" data-page="4"><h2>५. शेतीची स्थिती आणि तातडी</h2>
+<fieldset><legend>शेतातील सध्याची पीकस्थिती</legend><div id="cropOptions"></div></fieldset>
+<div id="urgencyArea"><p class="help">तातडीची कारणे निवडणे ऐच्छिक आहे. स्थिती ३ मध्ये हा भाग लपेल आणि आधीच्या तातडीच्या निवडी वापरल्या जाणार नाहीत.</p><fieldset><legend>तुमच्या परिस्थितीस लागू होणारी कारणे</legend><div id="urgencyOptions"></div></fieldset>
+<div id="reason3Wrap" class="dependent" hidden><h3>कारण ३ — नेमकी अडचण (किमान एक)</h3><div id="reason3Options"></div></div>
+<div id="reason4Wrap" class="dependent" hidden><h3>कारण ४ — नुकसानीची स्थिती</h3><div id="reason4Options"></div></div>
+<div id="reason5Wrap" class="dependent" hidden><label class="choice"><input id="houseConfirmed" type="checkbox"> रस्त्याच्या मार्गावर शेतातील घर असल्याची पुष्टी आहे.</label></div>
+<fieldset id="urgentHearingWrap" hidden><legend>स्वतंत्र पुष्टी: तातडीने सुनावणी घेऊन अंतिम निर्णय देण्याची मागणी करायची आहे का?</legend><label class="choice"><input type="radio" name="urgentHearing" value="yes"> होय</label><label class="choice"><input type="radio" name="urgentHearing" value="no"> नाही</label></fieldset></div></section>
+<section class="step" data-page="5"><h2>६. पुरावे व सामोपचाराचे प्रयत्न</h2>
+<div class="note">या नमुन्यात पुराव्यांच्या फाइल्स अपलोड करू नका. <b>पुरावा उपलब्ध</b> असणे आणि <b>अर्जासोबत जोडला</b> जाणे या वेगळ्या बाबी आहेत.</div>
+<fieldset><legend>उपलब्ध पुरावे</legend><div id="evidenceOptions"></div></fieldset>
+<fieldset><legend>अर्जासोबत जोडण्यासाठी निवडलेली कागदपत्रे (केवळ उपलब्धमधून)</legend><div id="attachedOptions"></div></fieldset>
+<fieldset><legend>अडथळा दूर करण्यासाठी यापूर्वी प्रयत्न केले आहेत का?</legend><label class="choice"><input type="radio" name="attemptsMade" value="yes"> होय</label><label class="choice"><input type="radio" name="attemptsMade" value="no" checked> नाही</label></fieldset>
+<div id="attemptDetails" hidden><fieldset><legend>कोणते प्रयत्न?</legend><div id="attemptOptions"></div></fieldset><fieldset><legend>प्रतिवादींचा प्रतिसाद</legend><div id="responseOptions"></div></fieldset></div></section>
+<section class="step" data-page="6"><h2>७. पुनरावलोकन व Word चाचणी मसुदा</h2>
+<label>अर्जाची मसुदा तारीख <input id="filingDate" type="date"></label>
+<p>खालील बटणाने नियम पडताळून अर्जाचे संपूर्ण पूर्वावलोकन पहा. पूर्वावलोकनानंतर माहिती बदलल्यास पुष्टी पुन्हा द्यावी लागेल.</p>
+<button type="button" id="previewBtn">नियमाधारित मसुद्याचे पूर्वावलोकन</button>
+<section class="note" id="aiPanel"><h3>नियंत्रित AI भाषिक मसुदा — ऐच्छिक</h3>
+<p id="aiStatus">AI स्थिती तपासत आहे…</p>
+<p class="help">AI कडे पक्षकारांची स्वतंत्र नाव-पत्ता फील्ड्स किंवा सातबारा फाइल पाठवली जात नाही; संबंधित तथ्ये मात्र पाठवली जाऊ शकतात. मुक्त मजकुरातील सर्व खाजगी माहिती आपोआप ओळखली जाईल याची हमी नाही. फक्त काल्पनिक माहिती वापरा.</p>
+<label class="choice"><input type="checkbox" id="aiConsent"> मी बाह्य AI सेवेकडे मर्यादित पुष्टी झालेली माहिती पाठवण्यास या विनंतीपुरती स्पष्ट संमती देतो/देते.</label>
+<button type="button" id="aiPreviewBtn" disabled>AI भाषिक परीक्षण मसुदा तयार करा</button>
+<p class="help">AI मसुदा स्वयंचलितपणे अंतिम ठरत नाही. प्रत्येक परिच्छेद तपासणे आवश्यक आहे. AI कडून अंतिम मागण्या किंवा दस्तऐवज यादी बदलली जात नाही.</p></section>
+<div id="errors" class="errors" role="alert" hidden></div>
+<div id="preview" hidden><h3 id="previewHeading">अर्जाचे पूर्वावलोकन</h3><div id="limitationNotice" class="note"></div><div id="paragraphPreview"></div><h3>अंतिम मागण्या</h3><div id="prayerPreview"></div><p class="help" id="previewModeInfo">स्रोत फील्ड वापरून नियमाधारित चाचणी मसुदा तयार केला आहे.</p>
+<label class="choice"><input type="checkbox" id="reviewConfirm"> मी संपूर्ण पूर्वावलोकन वाचले आहे; AI मसुदा असल्यास प्रत्येक परिच्छेद स्वतंत्रपणे तपासला आहे. हा न्यायालयात दाखल करण्यासाठी अंतिम अर्ज नाही.</label>
+<button type="button" id="downloadBtn" disabled>चाचणी Word मसुदा डाउनलोड करा</button></div></section>
+<div class="step-nav"><button id="backBtn" type="button" class="secondary" hidden>मागे</button><span id="stepPos" aria-live="polite">टप्पा १ / ७</span><button id="nextBtn" type="button">पुढे</button></div>
+</form>
+<footer>कलम ५ मॉड्यूल स्वतंत्र आहे. कलम १४३ चे नियम इथे लागू नाहीत. या नमुन्यात कोणताही अर्ज सर्व्हरवर कायम साठवला जात नाही.</footer>
+</main><script src="/app.js" defer></script></body></html>
