@@ -113,8 +113,26 @@
       </label>
 
       <div class="twocol">
-        <label>अडथळ्यापूर्वीची सरासरी रुंदी (फूट) <input type="number" id="widthFt" min="0.1" step="0.1" placeholder="उदा. १० किंवा १२" required></label>
-        <label>अंदाजे लांबी (फूट) — ऐच्छिक <input type="number" id="lengthFt" min="0.1" step="0.1" placeholder="माहित नसल्यास रिकामे ठेवा"></label>
+        <label>
+          अडथळ्यापूर्वीची सरासरी रुंदी (फूट) <span style="color: var(--danger, #dc2626);">*</span>
+          <input type="text" id="widthFt" inputmode="decimal" placeholder="उदा. १० किंवा १२" required autocomplete="off">
+        </label>
+        <label>
+          अंदाजे लांबी (फूट) — ऐच्छिक
+          <input type="text" id="lengthFt" inputmode="decimal" placeholder="माहित नसल्यास रिकामे ठेवा" autocomplete="off">
+        </label>
+      </div>
+
+      <div class="chips-container" style="margin-top: 2px; margin-bottom: 12px;">
+        <div class="chips-label">नेहमीची रुंदी (टॅप करून निवडा):</div>
+        <div class="chips-row" data-target="widthFt" data-mode="replace">
+          <button type="button" class="chip">+ ८ फूट</button>
+          <button type="button" class="chip">+ १० फूट</button>
+          <button type="button" class="chip">+ १२ फूट</button>
+          <button type="button" class="chip">+ १५ फूट</button>
+          <button type="button" class="chip">+ २० फूट</button>
+          <button type="button" class="chip">+ ३३ फूट (१ साखळी)</button>
+        </div>
       </div>
     </section>
 

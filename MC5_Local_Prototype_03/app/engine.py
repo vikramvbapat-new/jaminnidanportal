@@ -132,12 +132,20 @@ class ValidationError(ValueError):
 def _text(x):return str(x or '').strip()
 def _bool(x):return type(x) is bool
 
+DEVANAGARI_DIGITS_TABLE = str.maketrans('०१२३४५६७८९', '0123456789')
+
 def _num_positive(x, label, errors, required=True):
  if x in ('', None):
   if required: errors.append(label+' अनिवार्य आहे.')
   return None
  try:
-  value=float(x)
+  s = str(x).strip().translate(DEVANAGARI_DIGITS_TABLE).replace(',', '.')
+  import re
+  m = re.search(r'([-+]?\d+(?:\.\d+)?)', s)
+  if m:
+   value = float(m.group(1))
+  else:
+   value = float(s)
   if not (0 < value < 1_000_000):raise ValueError()
   return value
  except (ValueError, TypeError):

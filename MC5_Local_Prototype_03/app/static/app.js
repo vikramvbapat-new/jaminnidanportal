@@ -180,6 +180,21 @@ function updateConditional() {
   });
 }
 
+const DEVANAGARI_DIGITS = {
+  '०': '0', '१': '1', '२': '2', '३': '3', '४': '4',
+  '५': '5', '६': '6', '७': '7', '८': '8', '९': '9'
+};
+
+function normalizeNumber(val) {
+  if (val === null || val === undefined) return '';
+  let s = String(val).trim();
+  if (!s) return '';
+  s = s.replace(/[०-९]/g, d => DEVANAGARI_DIGITS[d] || d);
+  s = s.replace(',', '.');
+  const m = s.match(/(\d+(?:\.\d+)?)/);
+  return m ? m[1] : s;
+}
+
 function normalize() {
   const reasons = selectedReasons();
   const status = Number(getRadio('status') || 0);
@@ -195,8 +210,8 @@ function normalize() {
     preexisting_use: $('preexistingUse').value.trim(),
     route_description: $('routeDescription').value.trim(),
     village_road_confirmed: $('villageRoad').checked,
-    width_ft: $('widthFt').value.trim(),
-    length_ft: $('lengthFt').value.trim(),
+    width_ft: normalizeNumber($('widthFt').value),
+    length_ft: normalizeNumber($('lengthFt').value),
     obstruction_date: $('obstructionDate').value,
     obstruction_gat: $('obstructionGat').value.trim(),
     obstruction_gat_confidence: getRadio('gatConfidence'),
@@ -225,10 +240,67 @@ function normalize() {
 }
 
 function err(e) {
-  const message = Array.isArray(e) ? e.map(x => '• ' + x).join('\n') : String(e);
-  $('errors').textContent = message;
-  $('errors').hidden = false;
-  $('errors').scrollIntoView({ behavior: 'smooth' });
+  const errorsList = Array.isArray(e) ? e : [String(e)];
+  const box = $('errors');
+  box.replaceChildren();
+
+  const title = el('strong', {}, 'खालील त्रुटी आढळल्या आहेत, कृपया माहिती तपासा:');
+  box.append(title);
+
+  const ul = el('ul', { style: 'margin: 10px 0 4px 18px; padding: 0;' });
+  errorsList.forEach(msg => {
+    const li = el('li', { style: 'margin-bottom: 8px; line-height: 1.5;' });
+    li.append(document.createTextNode(msg));
+
+    let jumpStep = null;
+    let focusId = null;
+    let jumpText = '';
+
+    if (msg.includes('रुंदी') || msg.includes('रस्त्या') || msg.includes('मार्ग')) {
+      jumpStep = 2; // Step 3
+      focusId = 'widthFt';
+      jumpText = '👉 टप्पा ३ वर जा (रस्त्याची रुंदी भरा)';
+    } else if (msg.includes('गाव') || msg.includes('तालुका') || msg.includes('जिल्हा') || msg.includes('नकाशा')) {
+      jumpStep = 0; // Step 1
+      focusId = 'village';
+      jumpText = '👉 टप्पा १ वर जा (मूलभूत माहिती भरा)';
+    } else if (msg.includes('वादी') || msg.includes('प्रतिवादी')) {
+      jumpStep = 1; // Step 2
+      jumpText = '👉 टप्पा २ वर जा (पक्षकारांची माहिती भरा)';
+    } else if (msg.includes('अडथळा') || msg.includes('तारीख') || msg.includes('सद्यस्थिती')) {
+      jumpStep = 3; // Step 4
+      focusId = 'obstructionDate';
+      jumpText = '👉 टप्पा ४ वर जा (अडथळ्याची माहिती भरा)';
+    } else if (msg.includes('तातडी') || msg.includes('कारण')) {
+      jumpStep = 4; // Step 5
+      jumpText = '👉 टप्पा ५ वर जा (तातडीची कारणे भरा)';
+    }
+
+    if (jumpStep !== null) {
+      const btn = el('button', {
+        type: 'button',
+        class: 'jump-to-step-btn'
+      }, jumpText);
+      btn.onclick = () => {
+        setStep(jumpStep);
+        if (focusId && $(focusId)) {
+          setTimeout(() => {
+            $(focusId).scrollIntoView({ behavior: 'smooth', block: 'center' });
+            $(focusId).focus();
+            $(focusId).classList.add('input-error-highlight');
+            setTimeout(() => $(focusId).classList.remove('input-error-highlight'), 3500);
+          }, 200);
+        }
+      };
+      li.append(document.createElement('br'), btn);
+    }
+
+    ul.append(li);
+  });
+
+  box.append(ul);
+  box.hidden = false;
+  box.scrollIntoView({ behavior: 'smooth' });
 }
 
 async function callApi(path, body) {
@@ -397,6 +469,7 @@ async function download() {
 function setupChips() {
   document.querySelectorAll('.chips-row').forEach(row => {
     const targetId = row.dataset.target;
+    const isReplace = row.dataset.mode === 'replace';
     const targetInput = $(targetId);
     if (!targetInput) return;
 
@@ -405,16 +478,67 @@ function setupChips() {
         let text = btn.textContent.trim();
         if (text.startsWith('+ ')) text = text.slice(2).trim();
 
-        if (!targetInput.value.trim()) {
-          targetInput.value = text;
-        } else if (!targetInput.value.includes(text)) {
-          targetInput.value = targetInput.value.trim() + '\n' + text;
+        if (isReplace) {
+          const m = text.match(/([०-९\d]+(?:\.[०-९\d]+)?)/);
+          targetInput.value = m ? m[1] : text;
+          targetInput.classList.remove('input-error-highlight');
+        } else {
+          if (!targetInput.value.trim()) {
+            targetInput.value = text;
+          } else if (!targetInput.value.includes(text)) {
+            targetInput.value = targetInput.value.trim() + '\n' + text;
+          }
         }
         targetInput.dispatchEvent(new Event('input', { bubbles: true }));
         clearPreview();
       });
     });
   });
+}
+
+function validateStep(stepIndex) {
+  document.querySelectorAll('.input-error-highlight').forEach(el => el.classList.remove('input-error-highlight'));
+  $('errors').hidden = true;
+
+  if (stepIndex === 0) {
+    const missing = [];
+    if (!$('village').value.trim()) missing.push({ id: 'village', label: 'गाव' });
+    if (!$('taluka').value.trim()) missing.push({ id: 'taluka', label: 'तालुका' });
+    if (!$('district').value.trim()) missing.push({ id: 'district', label: 'जिल्हा' });
+    if (!$('mapAck').checked) missing.push({ id: 'mapAck', label: 'नकाशाविषयक सूचना वाचल्याची पुष्टी' });
+    if (missing.length) return reportMissing(missing);
+  } else if (stepIndex === 2) {
+    const missing = [];
+    if (!$('preexistingUse').value.trim()) missing.push({ id: 'preexistingUse', label: 'रस्त्याचा पूर्वीचा प्रत्यक्ष वापर' });
+    if (!$('routeDescription').value.trim()) missing.push({ id: 'routeDescription', label: 'रस्त्याचा प्रत्यक्ष मार्ग' });
+    if (!normalizeNumber($('widthFt').value)) missing.push({ id: 'widthFt', label: 'अडथळ्यापूर्वीची सरासरी रुंदी (फूट)' });
+    if (missing.length) return reportMissing(missing);
+  } else if (stepIndex === 3) {
+    const missing = [];
+    if (!$('obstructionDate').value) missing.push({ id: 'obstructionDate', label: 'अडथळ्याची तारीख' });
+    if (!$('obstructionGat').value.trim()) missing.push({ id: 'obstructionGat', label: 'अडथळ्याचा गट क्रमांक' });
+    if (!$('obstructionDescription').value.trim()) missing.push({ id: 'obstructionDescription', label: 'अडथळ्याचे प्रत्यक्ष स्वरूप' });
+    if (missing.length) return reportMissing(missing);
+  }
+  return true;
+}
+
+function reportMissing(missing) {
+  const names = missing.map(m => m.label).join(', ');
+  err(`या टप्प्यावरील आवश्यक माहिती अपूर्ण आहे: ${names}`);
+  const firstElem = $(missing[0].id);
+  if (firstElem) {
+    firstElem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    firstElem.focus();
+    missing.forEach(m => {
+      const e = $(m.id);
+      if (e) {
+        e.classList.add('input-error-highlight');
+        setTimeout(() => e.classList.remove('input-error-highlight'), 3500);
+      }
+    });
+  }
+  return false;
 }
 
 async function init() {
@@ -451,7 +575,11 @@ async function init() {
   $('addDefendant').onclick = () => { addParty('defendants'); clearPreview(); };
 
   $('backBtn').onclick = () => setStep(currentStep - 1);
-  $('nextBtn').onclick = () => setStep(currentStep + 1);
+  $('nextBtn').onclick = () => {
+    if (validateStep(currentStep)) {
+      setStep(currentStep + 1);
+    }
+  };
 
   document.querySelectorAll('.steps button').forEach(b => {
     b.onclick = () => setStep(Number(b.dataset.step));

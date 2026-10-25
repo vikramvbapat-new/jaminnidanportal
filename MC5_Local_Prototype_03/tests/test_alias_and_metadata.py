@@ -83,3 +83,35 @@ def test_verification_clause_in_docx():
     assert 'प्रतिज्ञापूर्वक लिहून देतो/देते' in text
     assert 'ठिकाण :' in text
     assert 'वादी/वादींची स्वाक्षरी :' in text
+
+
+def test_devanagari_and_marathi_width_parsing():
+    """Verify Marathi Devanagari digits and unit suffixes parse cleanly without error."""
+    d = fixture()
+    d['width_ft'] = '१० फूट'
+    d['length_ft'] = '१५० फूट'
+    governed = validate(d)
+    draft = make_draft(governed)
+    p3 = next(p for p in draft['paragraphs'] if p['number'] == 3)
+    assert '10' in p3['text'] or '१०' in p3['text']
+
+    # Also test ASCII with units and pure Devanagari
+    d['width_ft'] = '12 ft'
+    assert validate(d)
+
+    d['width_ft'] = '१५.५'
+    assert validate(d)
+
+
+def test_width_missing_or_invalid_errors():
+    """Verify missing width produces mandatory error, and negative produces positive number error."""
+    d = fixture()
+    d['width_ft'] = ''
+    with pytest.raises(ValidationError) as exc:
+        validate(d)
+    assert any('अडथळ्यापूर्वीची अंदाजे सरासरी रुंदी (फूट) अनिवार्य आहे.' in err for err in exc.value.errors)
+
+    d['width_ft'] = '-5'
+    with pytest.raises(ValidationError) as exc:
+        validate(d)
+    assert any('अडथळ्यापूर्वीची अंदाजे सरासरी रुंदी (फूट) सकारात्मक अंकात द्या.' in err for err in exc.value.errors)

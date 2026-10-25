@@ -25,8 +25,8 @@
       "word_exported": true,
       "linguistic_approval": false,
       "legal_approval": false,
-      "word_sha256": "f1bda8f187d744bf75cbc88c70e4d75b0ebac5bed61dd64aa99a9b2c78cd4e14",
-      "comparison_sha256": "c253277b267218439f8b519f355f6a4aadb7224669bf567748570dccad5cec11"
+      "word_sha256": "3b4af38c0f9708f375fea522455612714643c4b4b2354d9be42409cda7c56d4d",
+      "comparison_sha256": "d45302ecfe70ad261f5ff087c6983c72522244900412f7da99811008cb09a214"
     },
     {
       "case": "S02_PARTIALLY_REMOVED_URGENT",
@@ -50,8 +50,8 @@
       "word_exported": true,
       "linguistic_approval": false,
       "legal_approval": false,
-      "word_sha256": "764030fc96bf967f9b039b8abea9ee7afd12318abee1976266948e8f4f392641",
-      "comparison_sha256": "bfce07996b7e4c24f55c53f6faba7aa55e183562ac29b60d3cde37da8b147e40"
+      "word_sha256": "360cb51848d04f49435e41a7b99976ef8983dab1622dea17286e541260f38260",
+      "comparison_sha256": "4ed68c4c612809e60ff3002bb432010f7f66ffd5ab36f8ae49d10337e924ec9c"
     },
     {
       "case": "S03_REMOVED_INJUNCTION_ONLY",
@@ -74,8 +74,8 @@
       "word_exported": true,
       "linguistic_approval": false,
       "legal_approval": false,
-      "word_sha256": "5b4bfeea270c67ab7300e91dac75a5fc3431133bbaeedd4a96d14176956e44cc",
-      "comparison_sha256": "9d1980f4c1da248ddc83e2cd36eef1229f76bbeba97f59f4b19c9d0265748f9c"
+      "word_sha256": "f8584303496acdd785a77dfa1198f304f8cb9096dfc585dfab36a7502a0756e5",
+      "comparison_sha256": "7856a229cd5106a68e177e33b028c96a0e64f74112c84ce6b79dd403054c97f4"
     },
     {
       "case": "S04_LIMITATION_REVIEW_ONLY",
@@ -98,8 +98,8 @@
       "word_exported": true,
       "linguistic_approval": false,
       "legal_approval": false,
-      "word_sha256": "48c6e1e2d881906b95df73af7d07a80d47e0995a3eb3d32f88912867d3e5ea41",
-      "comparison_sha256": "88fa421b0830a678562d48efd3c7f44d584de42c0ba1f837b8cded6fa77a442d"
+      "word_sha256": "cbcb124a16a4e21258138c14a8e60796aab68d51c2c6e836ef743c7d8930ecea",
+      "comparison_sha256": "22112c30cb137c424df778eecc9b130f659673d35fa12d0f991e6ecffb90eed6"
     }
   ]
 }
