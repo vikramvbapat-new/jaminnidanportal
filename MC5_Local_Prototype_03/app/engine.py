@@ -195,13 +195,11 @@ def validate(payload:dict[str,Any]) -> dict[str,Any]:
  if not isinstance(reasons,list) or any(type(x) is not int or x not in (1,2,3,4,5,6) for x in reasons):
   errors.append('तातडीचे कारण चुकीचे आहे.');reasons=[]
  if len(reasons)!=len(set(reasons)):errors.append('तातडीचे कारण पुनरावृत्तीने निवडू नका.')
- if d['status']==3 and (reasons or d.get('urgent_hearing') is True):errors.append('अडथळा पूर्ण दूर झालेल्या प्रकरणात तातडीची जुनी निवड काढा.')
- allowed=set()
- if d['status'] in (1,2):
-  allowed.update([5,6]);crop=d.get('crop_status')
-  if crop in ('not_grown','planned'):allowed.add(1)
-  if crop=='standing':allowed.update([2,3,4])
-  if crop=='harvested' or d.get('harvested_stock') is True:allowed.add(3)
+ allowed=set([5,6])
+ crop=d.get('crop_status')
+ if crop in ('not_grown','planned'):allowed.add(1)
+ if crop=='standing':allowed.update([2,3,4])
+ if crop=='harvested' or d.get('harvested_stock') is True:allowed.add(3)
  if any(r not in allowed for r in reasons):errors.append('निवडलेले तातडीचे कारण पीकस्थितीशी जुळत नाही.')
  if 3 in reasons and not d.get('reason3_details'):errors.append('कारण ३ चे किमान एक उपकारण निवडा.')
  if 3 not in reasons and d.get('reason3_details'):errors.append('कारण ३ काढल्यावर त्याचे उपपर्यायही काढा.')
@@ -277,7 +275,11 @@ def draft_paragraphs(d):
 
  # P04: शेती व रस्त्याचा पूर्वीचा वापर (MANDATORY per Language Bank & Owner Directive)
  crops=d.get('crops') or 'भात व भाजीपाला'
+ if isinstance(crops, (list, tuple)):
+  crops=', '.join(str(c) for c in crops)
  transit=d.get('transport_modes') or 'पायी, दुचाकी व ट्रॅक्टर'
+ if isinstance(transit, (list, tuple)):
+  transit=', '.join(str(t) for t in transit)
  p[4]=f'४) वादी हे त्यांच्या संबंधित शेतजमिनीमध्ये {crops} या पिकांची लागवड करून शेती व्यवसाय करीत आहेत. सदर शेतजमिनीची मशागत करणे, पेरणी, लागवड, पिकांची निगा राखणे तसेच शेतीशी संबंधित इतर आवश्यक कामकाज पार पाडण्यासाठी वादी यांना त्यांच्या शेतजमिनीमध्ये वेळोवेळी जाणे-येणे आवश्यक असते. वादी हे अडथळा निर्माण होण्यापूर्वी सदर रस्त्यावरून {transit} यांच्या साहाय्याने शेतजमिनीकडे नियमितपणे ये-जा करीत होते. शेतीसाठी आवश्यक बियाणे, खते, औषधे, कृषी अवजारे व इतर साहित्य शेतजमिनीमध्ये नेण्यासाठी तसेच शेतात उत्पादित झालेला शेतीमाल बाहेर आणण्यासाठी सदर रस्त्याचा वापर केला जात होता. सदर रस्त्यावरून होणारी ये-जा ही केवळ प्रसंगोपात स्वरूपाची नसून वादी यांच्या शेतीच्या नियमित कामकाजाशी संबंधित होती. अशा प्रकारे वादग्रस्त रस्ता हा अडथळा निर्माण होण्यापूर्वी वादी यांच्या शेतजमिनीच्या प्रत्यक्ष वहिवाटीसाठी वापरात असलेला रस्ता होता.'
 
  # P05: अडथळ्याची तारीख व ठिकाण
@@ -309,11 +311,15 @@ def draft_paragraphs(d):
 
  # P09: तातडीची कारणे (Omitted if no urgency confirmed)
  reasons=d.get('urgency_reasons') or []
- if reasons and d['status'] in (1,2) and d.get('urgent_hearing') is True:
+ if reasons and d.get('urgent_hearing') is True:
   r_labels=' '.join(S7_REASON_LABELS.get(r,'') for r in reasons if r in S7_REASON_LABELS)
   if d.get('reason3_details'):r_labels+=' '+' '.join(d['reason3_details'])
   if d.get('reason4_damage'):r_labels+=' '+d['reason4_damage']
-  p[9]=f'९) प्रतिवादी यांनी वादग्रस्त रस्त्यावर निर्माण केलेल्या अडथळ्यामुळे वादी यांच्या शेतजमिनीतील आवश्यक शेतीविषयक कामकाजाच्या अनुषंगाने तातडीची परिस्थिती निर्माण झाली आहे. सद्यस्थितीत {r_labels} ही कामे करणे आवश्यक असून, त्यासाठी वादी यांना त्यांच्या पूर्वीच्या वापरातील रस्त्यावरून {transit} या प्रकारे ये-जा करणे आवश्यक आहे. तथापि, सदर अडथळ्यामुळे शेतीकामांवर प्रत्यक्ष परिणाम झालेला आहे. त्यामुळे वादी यांच्या शेतीविषयक कामकाजाची वेळेची निकड आणि वादग्रस्त रस्त्याच्या वापराची आवश्यकता विचारात घेता, प्रस्तुत प्रकरणाची तातडीने सुनावणी होऊन कायद्यानुसार अंतिम निर्णय होणे आवश्यक आहे.'
+  if d['status']==3:
+   impact_text='सदर भौतिक अडथळा सध्या दूर झालेला असला तरी भविष्यात पुन्हा अडथळा निर्माण झाल्यास शेतीकामांचे मोठे नुकसान होण्याची शक्यता असल्याने ही वेळेची निकड निर्माण झाली आहे.'
+  else:
+   impact_text='तथापि, सदर अडथळ्यामुळे शेतीकामांवर प्रत्यक्ष परिणाम झालेला आहे.'
+  p[9]=f'९) प्रतिवादी यांनी वादग्रस्त रस्त्यावर निर्माण केलेल्या अडथळ्यामुळे वादी यांच्या शेतजमिनीतील आवश्यक शेतीविषयक कामकाजाच्या अनुषंगाने तातडीची परिस्थिती निर्माण झाली आहे. सद्यस्थितीत {r_labels} ही कामे करणे आवश्यक असून, त्यासाठी वादी यांना त्यांच्या पूर्वीच्या वापरातील रस्त्यावरून {transit} या प्रकारे ये-जा करणे आवश्यक आहे. {impact_text} त्यामुळे वादी यांच्या शेतीविषयक कामकाजाची वेळेची निकड आणि वादग्रस्त रस्त्याच्या वापराची आवश्यकता विचारात घेता, प्रस्तुत प्रकरणाची तातडीने सुनावणी होऊन कायद्यानुसार अंतिम निर्णय होणे आवश्यक आहे.'
 
  # P10: रस्त्याच्या अस्तित्वाचे पुरावे
  ev_list=', '.join(d['evidence']) if d.get('evidence') else 'गाव नकाशा व जुने पुरावे'

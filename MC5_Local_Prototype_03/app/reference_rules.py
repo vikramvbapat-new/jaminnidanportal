@@ -33,8 +33,12 @@ def select_prayers(status:int, urgency_reasons:list[int]|None, urgent_hearing_ye
     if any(type(x) is not int or x not in S7_REASON_LABELS for x in reasons):
         raise InvalidForm('INVALID_URGENCY_REASON')
     if status == 3:
-        if reasons or urgent_hearing_yes_no is True: raise InvalidForm('S7_HIDDEN_FOR_STATUS_3_CLEAR_STALE_DATA')
         keys=['PR-3']
+        if reasons:
+            if urgent_hearing_yes_no is None: raise InvalidForm('ASK_SEPARATE_URGENT_HEARING_YES_NO')
+            if urgent_hearing_yes_no: keys.append('PR-4')
+        elif urgent_hearing_yes_no is True:
+            raise InvalidForm('URGENT_HEARING_WITHOUT_REASON')
     else:
         keys=['PR-1','PR-2','PR-3']
         if reasons:

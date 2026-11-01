@@ -40,9 +40,13 @@ def test_urgency_requires_separate_yes_no():
  d['urgent_hearing']=None
  with pytest.raises(ValidationError):make_draft(d)
 
-def test_status3_rejects_stale_urgency():
+def test_status3_with_urgency_includes_p09_without_claiming_ongoing_block():
  d=fixture(3);d['urgency_reasons']=[2];d['urgent_hearing']=True
- with pytest.raises(ValidationError):make_draft(d)
+ out=make_draft(d)
+ assert any(x['number']==9 for x in out['paragraphs'])
+ p9_text=next(x['text'] for x in out['paragraphs'] if x['number']==9)
+ assert 'सदर भौतिक अडथळा सध्या दूर झालेला असला तरी' in p9_text
+ assert 'सदर अडथळ्यामुळे शेतीकामांवर प्रत्यक्ष परिणाम झालेला आहे' not in p9_text
 
 def test_expired_late_review_only_and_no_within_time_assertion():
  d=fixture(filing_date='2027-08-01');out=make_draft(d)
