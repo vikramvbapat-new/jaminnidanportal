@@ -65,7 +65,7 @@
       <h2>२. वादी आणि प्रतिवादी तपशील</h2>
       <p class="help">एकापेक्षा जास्त वादी किंवा प्रतिवादी जोडता येतात. ७/१२ जमिनीच्या नोंदीनुसार अचूक तपशील भरावेत.</p>
       
-      <h3>वादी (Plaintifffs)</h3>
+      <h3>वादी (Plaintiffs)</h3>
       <div id="plaintiffs"></div>
       <button type="button" id="addPlaintiff" class="secondary">+ आणखी वादी जोडा</button>
 
@@ -75,6 +75,14 @@
       
       <div class="note info">
         क्षेत्र: ७/१२ प्रमाणे लागवडीलायक व पोटखराब स्वतंत्र नोंदवा. एकापेक्षा जास्त गट क्रमांक असल्यास स्वल्पविरामाने लिहावेत (उदा. १२५/१, १२५/२). आकार रुपये-पैसे स्वरूपात लिहावा (उदा. १२.५०).
+      </div>
+
+      <div class="note" style="margin-top: 12px; background: #fdf8f6; border-left: 4px solid #f97316;">
+        <strong>७/१२ खातेदार नाव सुचवणी (अंदाजित — प्रत्यक्ष मराठी ७/१२ तपासणी प्रलंबित):</strong>
+        <p class="help">७/१२ उताऱ्यावरील खातेदाराचे नाव वाचण्यासाठी छायाचित्र निवडा. फक्त नावाची सूचना मिळते; गट क्रमांक, क्षेत्र व आकार स्वतः भरावे लागतात. कोणताही डेटा सर्व्हरवर साठवला जात नाही.</p>
+        <input type="file" id="ocrInput" accept="image/*" style="display:none">
+        <button type="button" class="secondary" id="ocrBtn" style="margin-top: 4px;">📷 ७/१२ उताऱ्यावरून नाव सुचवा (चाचणी)</button>
+        <div id="ocrResult" style="margin-top: 8px;" hidden></div>
       </div>
     </section>
 

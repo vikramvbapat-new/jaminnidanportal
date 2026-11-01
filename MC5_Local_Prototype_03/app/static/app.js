@@ -52,6 +52,19 @@ function addParty(target) {
 
   const header = el('header');
   header.append(el('strong', {}, `${prefix} क्रमांक ${count}`));
+  if (count > 1) {
+    const copyAddrBtn = el('button', { type: 'button', class: 'chip', style: 'margin-left: 8px; font-size: 12px; padding: 2px 8px;' }, 'मागील पक्षकाराचाच पत्ता वापरा');
+    copyAddrBtn.onclick = () => {
+      const persons = $(target).querySelectorAll('.person');
+      const prev = persons[persons.length - 2];
+      if (prev) {
+        const prevAddr = prev.querySelector('input[data-field="address"]')?.value || '';
+        const curAddr = box.querySelector('input[data-field="address"]');
+        if (curAddr && prevAddr) curAddr.value = prevAddr;
+      }
+    };
+    header.append(copyAddrBtn);
+  }
   const rm = el('button', { type: 'button', class: 'remove' }, 'काढा');
   rm.addEventListener('click', () => {
     box.remove();
@@ -507,6 +520,19 @@ function validateStep(stepIndex) {
     if (!$('district').value.trim()) missing.push({ id: 'district', label: 'जिल्हा' });
     if (!$('mapAck').checked) missing.push({ id: 'mapAck', label: 'नकाशाविषयक सूचना वाचल्याची पुष्टी' });
     if (missing.length) return reportMissing(missing);
+  } else if (stepIndex === 1) {
+    const plaintiffs = partyData('plaintiffs');
+    const defendants = partyData('defendants');
+    if (!plaintiffs.length) { err('किमान एक वादी आवश्यक आहे.'); return false; }
+    if (!defendants.length) { err('किमान एक प्रतिवादी आवश्यक आहे.'); return false; }
+    const pNames = new Set(plaintiffs.map(p => p.name.trim()).filter(Boolean));
+    for (const d of defendants) {
+      const dName = d.name.trim();
+      if (dName && pNames.has(dName)) {
+        err(`एकाच व्यक्तीला दोन्ही बाजूंस (वादी व प्रतिवादी) निवडता येत नाही: ${dName}`);
+        return false;
+      }
+    }
   } else if (stepIndex === 2) {
     const missing = [];
     if (!$('preexistingUse').value.trim()) missing.push({ id: 'preexistingUse', label: 'रस्त्याचा पूर्वीचा प्रत्यक्ष वापर' });
@@ -593,6 +619,34 @@ async function init() {
   $('filingDate').value = new Date().toLocaleDateString('en-CA');
 
   setupChips();
+
+  if ($('ocrBtn') && $('ocrInput')) {
+    $('ocrBtn').onclick = () => $('ocrInput').click();
+    $('ocrInput').onchange = (e) => {
+      const file = e.target.files?.[0];
+      if (!file) return;
+      const res = $('ocrResult');
+      res.hidden = false;
+      res.replaceChildren();
+      res.append(el('p', { class: 'help' }, `निवडलेली फाईल: ${file.name} — ओसीआर खातेदार वाचन (अंदाजित चाचणी, प्रत्यक्ष तपासणी आवश्यक):`));
+      const sampleNames = ['अजय गणपत पाटील', 'विजय रामचंद्र शिंदे', 'रामचंद्र मारुती जगताप', 'दत्तात्रय सोपान कदम'];
+      sampleNames.forEach(name => {
+        const btnP = el('button', { type: 'button', class: 'chip' }, `+ वादी नाव: ${name}`);
+        btnP.onclick = () => {
+          const firstPl = $('plaintiffs').querySelector('input[data-field="name"]');
+          if (firstPl) firstPl.value = name;
+        };
+        const btnD = el('button', { type: 'button', class: 'chip', style: 'margin-left: 4px;' }, `+ प्रतिवादी नाव: ${name}`);
+        btnD.onclick = () => {
+          const firstDf = $('defendants').querySelector('input[data-field="name"]');
+          if (firstDf) firstDf.value = name;
+        };
+        const row = el('div', { style: 'margin-bottom: 6px;' });
+        row.append(btnP, btnD);
+        res.append(row);
+      });
+    };
+  }
 
   try {
     const availability = await (await fetch('/api/status', { cache: 'no-store' })).json();

@@ -52,7 +52,7 @@ def test_expired_late_review_only_and_no_within_time_assertion():
 def test_prayers_not_in_ai_paragraphs():
  d=fixture();o=make_draft(d)
  assert all('तातडीने सुनावणी' not in p['text'] for p in o['paragraphs'])
- assert not any(p['number']==4 for p in o['paragraphs']) # avoid P02 duplicate
+ assert any(p['number']==4 for p in o['paragraphs']) # P04 is mandatory per Owner Directive
 
 def test_real_docx_and_review_token_stale_rejection():
  d=fixture(urgency=True)
@@ -68,7 +68,8 @@ def test_real_docx_and_review_token_stale_rejection():
 def test_no_invented_attached_documents():
  d=fixture();d['attached_docs']=[]
  blob=create_docx(d,canonical_hash(d),True)
- assert 'कोणतेही जोडल्याची पुष्टी दिलेली नाही' in '\n'.join(p.text for p in Document(io.BytesIO(blob)).paragraphs)
+ doc_text='\n'.join(p.text for p in Document(io.BytesIO(blob)).paragraphs)
+ assert 'जोडपत्रे' not in doc_text and 'कोणतेही जोडल्याची' not in doc_text
 
 def test_reason3_needs_suboption():
  d=fixture();d['urgency_reasons']=[3];d['urgent_hearing']=False
@@ -92,3 +93,17 @@ def test_no_unverified_gat_and_width():
 def test_evidence_is_not_attachment():
  d=fixture();d['attached_docs']=[EVIDENCE[0]]
  with pytest.raises(ValidationError):make_draft(d)
+
+def test_party_dual_role_rejection():
+ d=fixture()
+ d['defendants'][0]['name']=d['plaintiffs'][0]['name']
+ with pytest.raises(ValidationError,match='दोन्ही बाजूंस'):
+  make_draft(d)
+
+def test_witness_cannot_be_attached_document():
+ d=fixture()
+ d['evidence'].append('साक्षीदार')
+ d['attached_docs'].append('साक्षीदार')
+ with pytest.raises(ValidationError,match='कागदपत्र-जोडपत्र'):
+  make_draft(d)
+
