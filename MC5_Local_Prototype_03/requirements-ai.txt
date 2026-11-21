@@ -1,3 +1,5 @@
 -r requirements.txt
 # Optional external AI integration only; no provider calls without explicit opt-in.
+# Install the provider you intend to use (or both):
 openai>=2,<4
+google-genai>=1.0

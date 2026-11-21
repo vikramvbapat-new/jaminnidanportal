@@ -21,3 +21,16 @@ def test_preview_docx_e2e():
  d['route_description']='बदल'
  stale=client.post('/api/docx',json={'data':d,'preview_token':t,'review_confirmed':True})
  assert stale.status_code==422
+
+def test_ai_status_and_consent_blocking():
+ st=client.get('/api/status').json()
+ assert 'ai_available' in st
+ assert 'ai_provider' in st
+ assert st['ai_available'] is False
+ assert st['ai_provider'] == ''
+ # Request without explicit consent must be blocked with 422
+ d=fixture()
+ res=client.post('/api/ai-preview',json={'data':d,'explicit_external_ai_consent':False})
+ assert res.status_code==422
+ assert 'स्वतंत्र संमती आवश्यक' in res.text
+

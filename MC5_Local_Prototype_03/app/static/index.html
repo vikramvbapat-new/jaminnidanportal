@@ -19,6 +19,7 @@
       <small>मामलेदार न्यायालय अधिनियम, १९०६ — कलम ५ (रस्ता अडथळा)</small>
     </div>
     <div class="header-badges">
+      <button type="button" id="fillSampleBtn" class="pill" style="background: #2563eb; color: #ffffff; border: none; cursor: pointer; padding: 6px 12px; font-size: 12px; font-weight: 700;">⚡ चाचणी नमुना माहिती भरा (Quick Pre-fill)</button>
       <span class="pill info" id="sessionBadge">सत्र: चालू</span>
       <span class="pill">चाचणी मसुदा / NOT FOR FILING</span>
     </div>
@@ -298,11 +299,15 @@
       <button type="button" id="previewBtn">नियमाधारित मसुद्याचे पूर्वावलोकन करा</button>
 
       <section class="note info" id="aiPanel">
-        <h3>नियंत्रित AI भाषिक मसुदा — ऐच्छिक</h3>
-        <p id="aiStatus">AI स्थिती तपासत आहे…</p>
-        <p class="help">AI कडे पक्षकारांची वैयक्तिक नाव-पत्ता फील्ड्स पाठवली जात नाहीत; केवळ रस्त्याचे व शेतीचे मर्यादित तथ्य पाठवले जाते. मुक्त मजकुरातील संवेदनशील माहिती आपोआप वगळली जाईल याची पूर्ण हमी नाही. फक्त चाचणी तथ्ये वापरा.</p>
-        <label class="choice">
-          <input type="checkbox" id="aiConsent"> मी बाह्य AI सेवेकडे मर्यादित पुष्टी झालेली माहिती पाठवण्यास या विनंतीपुरती स्पष्ट संमती देतो/देते.
+        <h3>नियंत्रित AI भाषिक मसुदा — ऐच्छिक चाचणी</h3>
+        <p id="aiStatus">AI सेवा स्थिती तपासत आहे…</p>
+        <div id="aiProviderDetails" class="note" style="margin: 10px 0; background: #ffffff; border-left: 4px solid var(--primary);" hidden>
+          <strong>सक्रिय AI प्रदाता:</strong> <span id="aiProviderName">—</span><br>
+          <span class="help"><strong>पाठवली जाणारी माहिती:</strong> केवळ वापरकर्त्याने पडताळलेली रस्त्याची व शेतीची मर्यादित तथ्ये (पूर्ववापर, पिके, अडथळा स्वरूप, वहिवाट अडचण). पक्षकारांची नावे, पत्ते, फोन नंबर किंवा ७/१२ दस्तऐवज AI कडे कधीही पाठवले जात नाहीत.</span>
+        </div>
+        <p class="help" id="aiHelpText">AI भाषिक मसुदा तयार करण्यासाठी खालील संमती आवश्यक आहे. संमती न दिल्यास किंवा AI सेवा उपलब्ध नसल्यास नियमाधारित मूळ मसुदा सुरक्षितपणे वापरता येईल.</p>
+        <label class="choice" id="aiConsentLabel" style="margin: 12px 0 14px; font-weight: 600;">
+          <input type="checkbox" id="aiConsent" autocomplete="off"> मी नमूद केलेल्या AI सेवेकडे वरील मर्यादित, पुष्टी झालेली तथ्ये पाठवण्यास केवळ या विनंतीपुरती स्पष्ट संमती देतो/देते.
         </label>
         <button type="button" id="aiPreviewBtn" class="secondary" disabled>AI भाषिक परीक्षण मसुदा तयार करा</button>
       </section>
@@ -311,6 +316,7 @@
 
       <div id="preview" hidden>
         <h3 id="previewHeading">अर्जाचे पूर्वावलोकन</h3>
+        <p id="previewModeInfo" class="help" style="margin: 4px 0 12px; font-weight: 500; color: var(--primary);"></p>
         <div id="limitationNotice" class="note"></div>
         
         <div id="paragraphPreview"></div>
@@ -318,13 +324,23 @@
         <h3>अंतिम मागण्या (Prayers)</h3>
         <div id="prayerPreview"></div>
         
-        <p class="help" id="previewModeInfo">स्रोत फील्ड वापरून नियमाधारित चाचणी मसुदा तयार झाला आहे.</p>
-        
-        <label class="choice">
+        <div id="aiReviewGateNotice" class="note" style="margin: 12px 0; background: #fefce8; border-left: 4px solid #eab308;" hidden>
+          <strong>⚠️ AI मसुदा डाउनलोड सुरक्षा अट:</strong> AI ने सुचवलेले परिच्छेद वाचून प्रत्येक परिच्छेदाखालील <em>"या परिच्छेदाची भाषा व तथ्ये मी स्वतः तपासली"</em> हा चेकबॉक्स निवडणे आवश्यक आहे. 
+          <div style="margin-top: 8px;">
+            <button type="button" id="selectAllAiChecksBtn" class="pill" style="background: #e2e8f0; color: #1e293b; border: 1px solid #94a3b8; cursor: pointer; padding: 6px 14px; font-weight: 600;">✓ सर्व परिच्छेद तपासले म्हणून निवडा (Select All for Testing)</button>
+          </div>
+        </div>
+
+        <label class="choice" style="margin: 14px 0 8px; font-weight: 600;">
           <input type="checkbox" id="reviewConfirm"> मी संपूर्ण पूर्वावलोकन वाचले आहे; AI मसुदा असल्यास प्रत्येक परिच्छेद स्वतंत्रपणे तपासला आहे. हा न्यायालयात दाखल करण्यासाठी अंतिम अर्ज नाही.
         </label>
 
-        <button type="button" id="downloadBtn" class="full-width" disabled>चाचणी Word (.docx) मसुदा डाउनलोड करा</button>
+        <p id="downloadGateHint" style="margin: 6px 0 12px; font-size: 14px; font-weight: 500; color: #b45309;"></p>
+
+        <div style="display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 8px;">
+          <button type="button" id="selectAllAiChecksBtnBottom" class="pill" style="background: #e2e8f0; color: #1e293b; border: 1px solid #94a3b8; cursor: pointer; padding: 8px 14px; font-weight: 600;" hidden>✓ सर्व परिच्छेद व पुष्टीकरण निवडा (Quick Confirm)</button>
+          <button type="button" id="downloadBtn" class="full-width" disabled>चाचणी Word (.docx) मसुदा डाउनलोड करा</button>
+        </div>
       </div>
     </section>
 

@@ -10,3 +10,7 @@ node_modules/
 .DS_Store
 Thumbs.db
 *.zip
+MC5_Local_Prototype_03_BASELINE_BACKUP/
+HuggingFace_Space_Ready/
+*.log
+

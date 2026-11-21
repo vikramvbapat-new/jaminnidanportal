@@ -1,4 +1,5 @@
 """Local-only FastAPI prototype 02. AI disabled by default. No persistence/OCR/OTP."""
+import os
 from pathlib import Path
 from io import BytesIO
 from fastapi import FastAPI, HTTPException
@@ -11,6 +12,19 @@ from .controlled_ai import (configured_provider, provider_is_configured, control
 
 app=FastAPI(title='MC5 Local Prototype 03 — NON PRODUCTION',docs_url=None,redoc_url=None)
 STATIC=Path(__file__).parent/'static'
+
+from fastapi.middleware.cors import CORSMiddleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
+@app.get('/health')
+def health():
+    return {'status':'ok'}
 
 class Input(BaseModel):
  data:dict
@@ -29,6 +43,7 @@ class AIDocxInput(BaseModel):
  reviewed_paragraph_numbers:list[int]=[]
 
 @app.get('/')
+@app.get('/index.html')
 def index():return FileResponse(STATIC/'index.html',headers={'Cache-Control':'no-store'})
 @app.get('/app.js')
 def js():return FileResponse(STATIC/'app.js',media_type='application/javascript',headers={'Cache-Control':'no-store'})
@@ -95,7 +110,10 @@ def ai_preview(input:AIInput):
   return JSONResponse(draft,headers={'Cache-Control':'no-store'})
  except ValidationError as exc:raise HTTPException(status_code=422,detail=exc.errors) from exc
  except DraftRejected as exc:raise HTTPException(status_code=422,detail=exc.errors) from exc
- except AIUnavailable as exc:raise HTTPException(status_code=503,detail=[str(exc)]) from exc
+ except AIUnavailable as exc:
+  cause = getattr(exc, '__cause__', None)
+  msg = f"{exc} [तपशील: {cause}]" if cause else str(exc)
+  raise HTTPException(status_code=503, detail=[msg]) from exc
 
 @app.post('/api/ai-docx')
 def ai_docx(input:AIDocxInput):
@@ -118,8 +136,13 @@ def ai_docx(input:AIDocxInput):
 
 @app.get('/api/status')
 def status():
+ prov_name = ''
+ if provider_is_configured():
+  prov = os.getenv('MC5_AI_PROVIDER', '').strip().lower()
+  prov_name = 'Google Gemini' if prov == 'gemini' else ('OpenAI' if prov == 'openai' else prov)
  return {'name':'MC5 local prototype 03','production':False,
          'ai_available':provider_is_configured(),
+         'ai_provider':prov_name,
          'ai_live_tested':False,'external_ai_consent_required':True,
          'ai_send_names_and_addresses':False,
          'ocr':False,'otp':False,'persistent_storage':False}

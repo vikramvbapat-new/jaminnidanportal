@@ -333,30 +333,72 @@ async function callApi(path, body) {
 
 function updateDownloadGate() {
   const checks = [...document.querySelectorAll('#paragraphPreview .para-review')];
-  const ok = $('reviewConfirm').checked && (lastToken || lastAI) &&
-    (lastMode !== 'ai' || (checks.length > 0 && checks.every(x => x.checked)));
+  const allParasChecked = checks.length > 0 && checks.every(x => x.checked);
+  const reviewConfirmed = $('reviewConfirm').checked;
+  const hasTokenOrAi = Boolean(lastToken || lastAI);
+  const isAi = lastMode === 'ai';
+
+  const ok = reviewConfirmed && hasTokenOrAi && (!isAi || allParasChecked);
   $('downloadBtn').disabled = !ok;
+
+  const hint = $('downloadGateHint');
+  if (hint) {
+    if (!hasTokenOrAi) {
+      hint.textContent = '';
+    } else if (ok) {
+      hint.textContent = '✅ सर्व पडताळणी पूर्ण झाली आहे. खालील बटणावरून Word (.docx) फाईल डाउनलोड करा.';
+      hint.style.color = '#15803d';
+    } else if (isAi) {
+      const checkedCount = checks.filter(x => x.checked).length;
+      if (!allParasChecked && !reviewConfirmed) {
+        hint.textContent = `ℹ️ डाउनलोडसाठी: वरील सर्व १३ परिच्छेद तपासा (किंवा खालील "सर्व निवडा" बटण दाबा) आणि अंतिम पुष्टीकरण चेकबॉक्स निवडा (${checkedCount}/${checks.length} निवडले).`;
+      } else if (!allParasChecked) {
+        hint.textContent = `ℹ️ डाउनलोडसाठी: अजून काही परिच्छेद तपासणे शिल्लक आहे (${checkedCount}/${checks.length} निवडले). सर्व निवडण्यासाठी खालील बटण दाबा.`;
+      } else if (!reviewConfirmed) {
+        hint.textContent = 'ℹ️ डाउनलोडसाठी: खालील अंतिम पुष्टीकरण चेकबॉक्स ("मी संपूर्ण पूर्वावलोकन वाचले आहे...") निवडा.';
+      }
+      hint.style.color = '#b45309';
+    } else {
+      hint.textContent = 'ℹ️ डाउनलोडसाठी: खालील अंतिम पुष्टीकरण चेकबॉक्स निवडा.';
+      hint.style.color = '#b45309';
+    }
+  }
+
+  const bottomSelectAll = $('selectAllAiChecksBtnBottom');
+  if (bottomSelectAll) {
+    bottomSelectAll.hidden = !isAi;
+  }
 }
 
 function showDraft(data, mode) {
   lastMode = mode;
-  $('previewHeading').textContent = mode === 'ai'
-    ? 'AI भाषिक मसुद्याचे पुनरावलोकन'
-    : 'नियमाधारित अर्जाचे संपूर्ण पूर्वावलोकन (१३ परिच्छेद)';
+  const heading = $('previewHeading');
+  if (heading) {
+    heading.textContent = mode === 'ai'
+      ? 'AI भाषिक मसुद्याचे पुनरावलोकन'
+      : 'नियमाधारित अर्जाचे संपूर्ण पूर्वावलोकन (१३ परिच्छेद)';
+  }
 
-  $('previewModeInfo').textContent = mode === 'ai'
-    ? 'AI ने काही निवडक परिच्छेदांची भाषा सुचवली आहे. निश्चित परिच्छेद आणि सर्व मागण्या प्रणालीने लॉक केल्या आहेत. प्रत्येक परिच्छेद स्वतंत्रपणे तपासा.'
-    : 'हे AI-generated लेखन नाही. पुष्टी झालेले स्रोत फील्ड वापरून नियमाधारित मसुदा तयार झाला आहे.';
+  const modeInfo = $('previewModeInfo');
+  if (modeInfo) {
+    modeInfo.textContent = mode === 'ai'
+      ? 'AI ने काही निवडक परिच्छेदांची भाषा सुचवली आहे. निश्चित परिच्छेद आणि सर्व मागण्या प्रणालीने लॉक केल्या आहेत. प्रत्येक परिच्छेद स्वतंत्रपणे तपासा.'
+      : 'हे AI-generated लेखन नाही. पुष्टी झालेले स्रोत फील्ड वापरून नियमाधारित मसुदा तयार झाला आहे.';
+  }
 
-  $('limitationNotice').textContent = data.limitation.warning || data.export_label;
+  const limNotice = $('limitationNotice');
+  if (limNotice) {
+    limNotice.textContent = data.limitation.warning || data.export_label;
+  }
 
   // Update session badge
-  if (data.draft_id) {
+  const badge = $('sessionBadge');
+  if (badge && data.draft_id) {
     sessionMeta.draft_id = data.draft_id;
     sessionMeta.started_at = data.started_at;
     sessionMeta.word_revision = data.word_revision || 1;
-    $('sessionBadge').textContent = `सत्र: ${data.draft_id.slice(0, 8)}... (३० दिवस वैध)`;
-    $('sessionBadge').title = `सत्र सुरू: ${data.started_at} | वैध मुदत: ${data.expires_at}`;
+    badge.textContent = `सत्र: ${data.draft_id.slice(0, 8)}... (३० दिवस वैध)`;
+    badge.title = `सत्र सुरू: ${data.started_at} | वैध मुदत: ${data.expires_at}`;
   }
 
   const paragraphs = $('paragraphPreview');
@@ -389,6 +431,10 @@ function showDraft(data, mode) {
     paragraphs.append(card);
   });
 
+  if ($('aiReviewGateNotice')) {
+    $('aiReviewGateNotice').hidden = (mode !== 'ai');
+  }
+
   const prayers = $('prayerPreview');
   prayers.replaceChildren();
   data.prayers.forEach(p => {
@@ -400,6 +446,7 @@ function showDraft(data, mode) {
   $('preview').hidden = false;
   $('reviewConfirm').checked = false;
   $('downloadBtn').disabled = true;
+  updateDownloadGate();
   $('preview').scrollIntoView({ behavior: 'smooth' });
 }
 
@@ -424,8 +471,11 @@ async function aiPreview() {
       },
       review_token: data.review_token
     };
+    // Always require fresh consent for any subsequent generation request
+    $('aiConsent').checked = false;
     showDraft(data, 'ai');
   } catch (e) {
+    $('aiConsent').checked = false;
     err(e);
   }
 }
@@ -452,16 +502,28 @@ async function download() {
   try {
     const isAi = lastMode === 'ai';
     const endpoint = isAi ? '/api/ai-docx' : '/api/docx';
+    const checks = [...document.querySelectorAll('#paragraphPreview .para-review:checked')].map(x => Number(x.value));
+    const confirmed = $('reviewConfirm').checked;
+
+    if (!confirmed) {
+      err('डाउनलोड करण्यासाठी "मी संपूर्ण पूर्वावलोकन वाचले आहे..." हा चेकबॉक्स निवडणे आवश्यक आहे.');
+      return;
+    }
+    if (isAi && checks.length < 13) {
+      err('AI मसुदा डाउनलोड करण्यासाठी सर्व १३ परिच्छेद तपासले असणे आवश्यक आहे. आपण खालील "सर्व निवडा (Quick Confirm)" बटण वापरू शकता.');
+      return;
+    }
+
     const payload = isAi ? {
       data: normalize(),
       candidate: lastAI.candidate,
       review_token: lastAI.review_token,
-      review_confirmed: $('reviewConfirm').checked,
-      reviewed_paragraph_numbers: [...document.querySelectorAll('#paragraphPreview .para-review:checked')].map(x => Number(x.value))
+      review_confirmed: confirmed,
+      reviewed_paragraph_numbers: checks
     } : {
       data: normalize(),
       preview_token: lastToken,
-      review_confirmed: $('reviewConfirm').checked
+      review_confirmed: confirmed
     };
 
     const res = await callApi(endpoint, payload);
@@ -585,14 +647,25 @@ async function init() {
 
   $('cropOptions').querySelector('input').checked = true;
 
+  const isReviewInteraction = e => {
+    return e.target.id === 'reviewConfirm' ||
+           e.target.id === 'aiConsent' ||
+           e.target.id === 'selectAllAiChecksBtn' ||
+           e.target.id === 'selectAllAiChecksBtnBottom' ||
+           e.target.id === 'downloadBtn' ||
+           e.target.classList.contains('para-review') ||
+           Boolean(e.target.closest('#preview')) ||
+           Boolean(e.target.closest('#aiPanel'));
+  };
+
   $('mainForm').addEventListener('input', e => {
-    if (e.target.id === 'reviewConfirm') return;
+    if (isReviewInteraction(e)) return;
     clearPreview();
     updateConditional();
   });
 
   $('mainForm').addEventListener('change', e => {
-    if (e.target.id === 'reviewConfirm') return;
+    if (isReviewInteraction(e)) return;
     clearPreview();
     updateConditional();
   });
@@ -610,6 +683,105 @@ async function init() {
   document.querySelectorAll('.steps button').forEach(b => {
     b.onclick = () => setStep(Number(b.dataset.step));
   });
+
+  function fillSample() {
+    $('village').value = 'आंबेगाव';
+    $('taluka').value = 'जुन्नर';
+    $('district').value = 'पुणे';
+    $('mapAck').checked = true;
+
+    $('plaintiffs').replaceChildren();
+    $('defendants').replaceChildren();
+    addParty('plaintiffs');
+    addParty('defendants');
+
+    const pName = $('plaintiffs').querySelector('input[data-field="name"]');
+    const pAddr = $('plaintiffs').querySelector('input[data-field="address"]');
+    const pGat = $('plaintiffs').querySelector('input[data-field="gat"]');
+    const pCult = $('plaintiffs').querySelector('input[data-field="cultivable"]');
+    const pPot = $('plaintiffs').querySelector('input[data-field="potkharab"]');
+    const pAss = $('plaintiffs').querySelector('input[data-field="assessment"]');
+    if (pName) pName.value = 'अजय गणपत पाटील';
+    if (pAddr) pAddr.value = 'आंबेगाव, ता. जुन्नर';
+    if (pGat) pGat.value = '१२५';
+    if (pCult) pCult.value = '१.२०';
+    if (pPot) pPot.value = '०.०५';
+    if (pAss) pAss.value = '१२.५०';
+
+    const dName = $('defendants').querySelector('input[data-field="name"]');
+    const dAddr = $('defendants').querySelector('input[data-field="address"]');
+    const dGat = $('defendants').querySelector('input[data-field="gat"]');
+    const dCult = $('defendants').querySelector('input[data-field="cultivable"]');
+    const dPot = $('defendants').querySelector('input[data-field="potkharab"]');
+    const dAss = $('defendants').querySelector('input[data-field="assessment"]');
+    if (dName) dName.value = 'विजय रामचंद्र शिंदे';
+    if (dAddr) dAddr.value = 'आंबेगाव, ता. जुन्नर';
+    if (dGat) dGat.value = '१२४';
+    if (dCult) dCult.value = '०.८०';
+    if (dPot) dPot.value = '०.००';
+    if (dAss) dAss.value = '९.२०';
+
+    $('preexistingUse').value = 'गेल्या अनेक वर्षांपासून शेतात बैलगाडी, ट्रॅक्टर व पायी येण्या-जाण्यासाठी वहिवाट आहे.';
+    $('routeDescription').value = 'गट क्रमांक १२४ च्या पश्चिमेकडील बांधावरून जाणारा रस्ता';
+    $('villageRoad').checked = true;
+    $('widthFt').value = '१२';
+    $('lengthFt').value = '२००';
+
+    $('obstructionDate').value = '2026-09-15';
+    $('obstructionGat').value = '१२४';
+    const exactConf = document.querySelector('input[name="gatConfidence"][value="exact"]');
+    if (exactConf) exactConf.checked = true;
+    const selfRole = document.querySelector('input[name="obstructorRole"][value="स्वतः खातेदार"]');
+    if (selfRole) selfRole.checked = true;
+    $('obstructionDescription').value = 'मोठे दगड व मातीचा भराव टाकून रस्ता पूर्ण बंद केला';
+    const stat1 = document.querySelector('input[name="status"][value="1"]');
+    if (stat1) stat1.checked = true;
+    $('accessEffect').value = 'ट्रॅक्टर व शेती अवजारे शेतात नेता येत नाहीत';
+    $('specificHarm').value = 'ऊस पिकाला वेळेवर पाणी व खते देणे अशक्य झाले आहे';
+
+    const standingCrop = document.querySelector('input[name="cropStatus"][value="standing"]');
+    if (standingCrop) standingCrop.checked = true;
+    updateConditional();
+
+    const u2 = document.querySelector('#urgencyOptions input[value="2"]');
+    if (u2) u2.checked = true;
+    const uhYes = document.querySelector('input[name="urgentHearing"][value="yes"]');
+    if (uhYes) uhYes.checked = true;
+
+    const ev0 = document.querySelector('#evidenceOptions input[value="रस्ता दर्शविणारा नकाशा"]');
+    const ev4 = document.querySelector('#evidenceOptions input[value="जुने फोटो"]');
+    if (ev0) ev0.checked = true;
+    if (ev4) ev4.checked = true;
+    updateConditional();
+
+    const at0 = document.querySelector('#attachedOptions input[value="रस्ता दर्शविणारा नकाशा"]');
+    const at4 = document.querySelector('#attachedOptions input[value="जुने फोटो"]');
+    if (at0) at0.checked = true;
+    if (at4) at4.checked = true;
+
+    const attYes = document.querySelector('input[name="attemptsMade"][value="yes"]');
+    if (attYes) attYes.checked = true;
+    updateConditional();
+
+    const atOpt1 = document.querySelector('#attemptOptions input[value="प्रतिवादींना वैयक्तिक विनंती"]');
+    if (atOpt1) atOpt1.checked = true;
+    const respNakar = document.querySelector('input[name="defendantResponse"][value="नकार"]');
+    if (respNakar) respNakar.checked = true;
+
+    $('filingDate').value = '2026-10-24';
+    clearPreview();
+    updateConditional();
+    setStep(6); // Jump straight to Screen 7 (पुनरावलोकन) for instant testing!
+  }
+
+  if ($('fillSampleBtn')) $('fillSampleBtn').onclick = fillSample;
+  const handleSelectAll = () => {
+    document.querySelectorAll('#paragraphPreview .para-review').forEach(c => { c.checked = true; });
+    $('reviewConfirm').checked = true;
+    updateDownloadGate();
+  };
+  if ($('selectAllAiChecksBtn')) $('selectAllAiChecksBtn').onclick = handleSelectAll;
+  if ($('selectAllAiChecksBtnBottom')) $('selectAllAiChecksBtnBottom').onclick = handleSelectAll;
 
   $('previewBtn').onclick = preview;
   $('aiPreviewBtn').onclick = aiPreview;
@@ -650,12 +822,28 @@ async function init() {
 
   try {
     const availability = await (await fetch('/api/status', { cache: 'no-store' })).json();
-    $('aiStatus').textContent = availability.ai_available
-      ? 'AI सेवा सर्व्हरवर उपलब्ध आहे; प्रत्येक विनंतीसाठी स्वतंत्र स्पष्ट संमती आवश्यक.'
-      : 'AI सेवा बंद आहे. सुरक्षित स्थानिक नियमाधारित मोड उपलब्ध आहे.';
-    $('aiPreviewBtn').disabled = !availability.ai_available;
+    if (availability.ai_available) {
+      const providerLabel = availability.ai_provider || 'कॉन्फिगर केलेला AI प्रदाता';
+      $('aiStatus').textContent = `AI सेवा उपलब्ध आहे (प्रदाता: ${providerLabel}).`;
+      $('aiProviderName').textContent = providerLabel;
+      $('aiProviderDetails').hidden = false;
+      $('aiConsentLabel').hidden = false;
+      $('aiConsent').checked = false; // Always unchecked by default
+      $('aiPreviewBtn').disabled = false;
+    } else {
+      $('aiStatus').textContent = 'AI सेवा कॉन्फिगर केलेली नाही (AI service not configured).';
+      $('aiProviderDetails').hidden = true;
+      $('aiConsentLabel').hidden = true;
+      $('aiConsent').checked = false;
+      $('aiPreviewBtn').disabled = true;
+      $('aiPreviewBtn').title = 'AI सेवा कॉन्फिगर केलेली नाही. नियमाधारित मसुदा वापरा.';
+    }
   } catch (e) {
-    $('aiStatus').textContent = 'AI स्थिती सध्या उपलब्ध नाही.';
+    $('aiStatus').textContent = 'AI सेवा कॉन्फिगर केलेली नाही (AI service not configured).';
+    $('aiProviderDetails').hidden = true;
+    $('aiConsentLabel').hidden = true;
+    $('aiConsent').checked = false;
+    $('aiPreviewBtn').disabled = true;
   }
 
   updateConditional();

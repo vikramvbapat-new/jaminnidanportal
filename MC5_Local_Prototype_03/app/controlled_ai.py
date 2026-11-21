@@ -93,6 +93,7 @@ class OpenAIRewriter:
     text={'format':{'type':'json_schema','name':'mc5_paragraph_rewrite','schema':_PARAGRAPH_SCHEMA,'strict':True}})
    return json.loads(response.output_text)
   except Exception as exc:
+   import traceback; print('*** DEBUG AI EXCEPTION ***:', repr(exc)); traceback.print_exc()
    # Never leak credentials/request payload or remote error details into UI.
    raise AIUnavailable('AI सेवेकडून वैध मसुदा मिळाला नाही. स्थानिक नियमाधारित मसुदा वापरा.') from exc
 
@@ -122,20 +123,32 @@ class GeminiRewriter:
      'required':['number','text']}}},
    'required':['paragraphs']}
   client=genai.Client(api_key=api_key)
-  try:
-   response=client.models.generate_content(
-    model=model,
-    contents=json.dumps(request,ensure_ascii=False,sort_keys=True),
-    config=types.GenerateContentConfig(
-     system_instruction=_SYSTEM_INSTRUCTIONS,
-     response_mime_type='application/json',
-     response_schema=gemini_schema,
-     max_output_tokens=3000,
-     temperature=0.2))
-   return json.loads(response.text)
-  except Exception as exc:
+  candidate_models = [model]
+  for fallback in ['gemini-3.5-flash', 'gemini-3.5-flash-lite']:
+   if fallback not in candidate_models:
+    candidate_models.append(fallback)
+  last_exc = None
+  for cand_model in candidate_models:
+   try:
+    response=client.models.generate_content(
+     model=cand_model,
+     contents=json.dumps(request,ensure_ascii=False,sort_keys=True),
+     config=types.GenerateContentConfig(
+      system_instruction=_SYSTEM_INSTRUCTIONS,
+      response_mime_type='application/json',
+      response_schema=gemini_schema,
+      max_output_tokens=3000,
+      temperature=0.2))
+    return json.loads(response.text)
+   except Exception as exc:
+    last_exc = exc
+    exc_str = str(exc)
+    if '503' in exc_str or '404' in exc_str or 'UNAVAILABLE' in exc_str or 'NOT_FOUND' in exc_str:
+     continue
+    break
+  if last_exc is not None:
    # Never leak credentials/request payload or remote error details into UI.
-   raise AIUnavailable('AI सेवेकडून वैध मसुदा मिळाला नाही. स्थानिक नियमाधारित मसुदा वापरा.') from exc
+   raise AIUnavailable('AI सेवेकडून वैध मसुदा मिळाला नाही. स्थानिक नियमाधारित मसुदा वापरा.') from last_exc
 
 def provider_is_configured()->bool:
  prov=os.getenv('MC5_AI_PROVIDER','')

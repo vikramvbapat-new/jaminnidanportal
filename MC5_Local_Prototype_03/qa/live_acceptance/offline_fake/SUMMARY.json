@@ -7,14 +7,16 @@
     {
       "case": "S01_OBSTRUCTION_EXISTS",
       "status": "STRUCTURAL_OK_HUMAN_REVIEW_PENDING",
-      "paragraphs": 10,
+      "paragraphs": 12,
       "paragraph_numbers": [
         1,
         2,
         3,
+        4,
         5,
         6,
         7,
+        8,
         10,
         11,
         12,
@@ -25,20 +27,22 @@
       "word_exported": true,
       "linguistic_approval": false,
       "legal_approval": false,
-      "word_sha256": "3b4af38c0f9708f375fea522455612714643c4b4b2354d9be42409cda7c56d4d",
-      "comparison_sha256": "d45302ecfe70ad261f5ff087c6983c72522244900412f7da99811008cb09a214"
+      "word_sha256": "6f739ad9513bc71abff46b7bf4f94cd4e0c988a063505f2aa34cb91c5221c0e2",
+      "comparison_sha256": "02e5b3c601bca8e97d810ff54f3eac0c8f9711e8847e9b55a0ffef2e5e39f288"
     },
     {
       "case": "S02_PARTIALLY_REMOVED_URGENT",
       "status": "STRUCTURAL_OK_HUMAN_REVIEW_PENDING",
-      "paragraphs": 11,
+      "paragraphs": 13,
       "paragraph_numbers": [
         1,
         2,
         3,
+        4,
         5,
         6,
         7,
+        8,
         9,
         10,
         11,
@@ -50,20 +54,22 @@
       "word_exported": true,
       "linguistic_approval": false,
       "legal_approval": false,
-      "word_sha256": "360cb51848d04f49435e41a7b99976ef8983dab1622dea17286e541260f38260",
-      "comparison_sha256": "4ed68c4c612809e60ff3002bb432010f7f66ffd5ab36f8ae49d10337e924ec9c"
+      "word_sha256": "b04db37525473512d35f9f386eb4e3d2bc6e9b5b6b6b4f8ab7df42a4e8426e02",
+      "comparison_sha256": "9c3cbf36f3be175cef870dea71a2285e502988d6e391b76491fd1f1038ed9afd"
     },
     {
       "case": "S03_REMOVED_INJUNCTION_ONLY",
       "status": "STRUCTURAL_OK_HUMAN_REVIEW_PENDING",
-      "paragraphs": 10,
+      "paragraphs": 12,
       "paragraph_numbers": [
         1,
         2,
         3,
+        4,
         5,
         6,
         7,
+        8,
         10,
         11,
         12,
@@ -74,20 +80,22 @@
       "word_exported": true,
       "linguistic_approval": false,
       "legal_approval": false,
-      "word_sha256": "f8584303496acdd785a77dfa1198f304f8cb9096dfc585dfab36a7502a0756e5",
-      "comparison_sha256": "7856a229cd5106a68e177e33b028c96a0e64f74112c84ce6b79dd403054c97f4"
+      "word_sha256": "a3ecfca2c63831747beab575a6e8e8ed7b5efc3a6f195071768243687d379b9e",
+      "comparison_sha256": "e11a53bb3e5a0c480f8f6ff3d97b1dc3987bd00097b4667e1296907b93d9e7e3"
     },
     {
       "case": "S04_LIMITATION_REVIEW_ONLY",
       "status": "STRUCTURAL_OK_HUMAN_REVIEW_PENDING",
-      "paragraphs": 10,
+      "paragraphs": 12,
       "paragraph_numbers": [
         1,
         2,
         3,
+        4,
         5,
         6,
         7,
+        8,
         10,
         11,
         12,
@@ -98,8 +106,8 @@
       "word_exported": true,
       "linguistic_approval": false,
       "legal_approval": false,
-      "word_sha256": "cbcb124a16a4e21258138c14a8e60796aab68d51c2c6e836ef743c7d8930ecea",
-      "comparison_sha256": "22112c30cb137c424df778eecc9b130f659673d35fa12d0f991e6ecffb90eed6"
+      "word_sha256": "f6159112959be6bae4c12fa60b4199d7dd98293e9eca1fc6e65d4648e99d1288",
+      "comparison_sha256": "b9af7d2354d688b662728683e4770f477847d3b22ec77078a8002a7c13ada9e4"
     }
   ]
 }
