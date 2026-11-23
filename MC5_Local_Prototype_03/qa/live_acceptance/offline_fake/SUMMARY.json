@@ -27,8 +27,8 @@
       "word_exported": true,
       "linguistic_approval": false,
       "legal_approval": false,
-      "word_sha256": "6f739ad9513bc71abff46b7bf4f94cd4e0c988a063505f2aa34cb91c5221c0e2",
-      "comparison_sha256": "02e5b3c601bca8e97d810ff54f3eac0c8f9711e8847e9b55a0ffef2e5e39f288"
+      "word_sha256": "79901875dc396d4987155050ca15c9fb016921b431f1ec2ac52d391638eab206",
+      "comparison_sha256": "3d9ad25d0c54303a81fc16b4cfef2308c2f4d1daec5d4be647a3ddfb2bc91123"
     },
     {
       "case": "S02_PARTIALLY_REMOVED_URGENT",
@@ -54,8 +54,8 @@
       "word_exported": true,
       "linguistic_approval": false,
       "legal_approval": false,
-      "word_sha256": "b04db37525473512d35f9f386eb4e3d2bc6e9b5b6b6b4f8ab7df42a4e8426e02",
-      "comparison_sha256": "9c3cbf36f3be175cef870dea71a2285e502988d6e391b76491fd1f1038ed9afd"
+      "word_sha256": "ae38211a837c623eb5c8f684e2f631783e426e74147745eb54fe95466eb08bda",
+      "comparison_sha256": "a4649c7e907c32fe9f1cad0a9ca136fd779f82d50d346ee828b91a977f3c74e9"
     },
     {
       "case": "S03_REMOVED_INJUNCTION_ONLY",
@@ -80,8 +80,8 @@
       "word_exported": true,
       "linguistic_approval": false,
       "legal_approval": false,
-      "word_sha256": "a3ecfca2c63831747beab575a6e8e8ed7b5efc3a6f195071768243687d379b9e",
-      "comparison_sha256": "e11a53bb3e5a0c480f8f6ff3d97b1dc3987bd00097b4667e1296907b93d9e7e3"
+      "word_sha256": "1e65ac6cf6157cf196fb494fcd74d9c67e019c914f8684acd74c3cdfb4ec1394",
+      "comparison_sha256": "64b7ec9a3aca33c7d778b807f79e22a23c3c921a9ea4bd421d808a3fc47b67d9"
     },
     {
       "case": "S04_LIMITATION_REVIEW_ONLY",
@@ -106,8 +106,8 @@
       "word_exported": true,
       "linguistic_approval": false,
       "legal_approval": false,
-      "word_sha256": "f6159112959be6bae4c12fa60b4199d7dd98293e9eca1fc6e65d4648e99d1288",
-      "comparison_sha256": "b9af7d2354d688b662728683e4770f477847d3b22ec77078a8002a7c13ada9e4"
+      "word_sha256": "d3a44575fff11cc9c50ada168f71b10ec92dc40eeb105bd8b121ff68ea2ceee3",
+      "comparison_sha256": "9bb517647ce03ac6cf2b29f5f059a2cb0d2ebeb7108a2c8a1c2f3f9a947258fa"
     }
   ]
 }

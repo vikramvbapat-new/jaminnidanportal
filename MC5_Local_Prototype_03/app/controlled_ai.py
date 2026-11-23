@@ -86,12 +86,24 @@ class OpenAIRewriter:
    raise AIUnavailable('openai Python पॅकेज स्थापित नाही.') from exc
   client=OpenAI(timeout=30.0,max_retries=0)
   try:
-   response=client.responses.create(
-    model=model,store=False,max_output_tokens=3000,
-    instructions=_SYSTEM_INSTRUCTIONS,
-    input=[{'role':'user','content':json.dumps(request,ensure_ascii=False,sort_keys=True)}],
-    text={'format':{'type':'json_schema','name':'mc5_paragraph_rewrite','schema':_PARAGRAPH_SCHEMA,'strict':True}})
-   return json.loads(response.output_text)
+   try:
+    response=client.responses.create(
+     model=model,store=False,max_output_tokens=3000,
+     instructions=_SYSTEM_INSTRUCTIONS,
+     input=[{'role':'user','content':json.dumps(request,ensure_ascii=False,sort_keys=True)}],
+     text={'format':{'type':'json_schema','name':'mc5_paragraph_rewrite','schema':_PARAGRAPH_SCHEMA,'strict':True}})
+    return json.loads(response.output_text)
+   except (AttributeError, TypeError):
+    completion=client.chat.completions.create(
+     model=model,
+     messages=[
+      {'role':'system','content':_SYSTEM_INSTRUCTIONS},
+      {'role':'user','content':json.dumps(request,ensure_ascii=False,sort_keys=True)}
+     ],
+     response_format={'type':'json_object'},
+     max_tokens=3000,
+     temperature=0.2)
+    return json.loads(completion.choices[0].message.content)
   except Exception as exc:
    import traceback; print('*** DEBUG AI EXCEPTION ***:', repr(exc)); traceback.print_exc()
    # Never leak credentials/request payload or remote error details into UI.
